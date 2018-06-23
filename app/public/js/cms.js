@@ -18,7 +18,7 @@ $(document).ready(function() {
     var cmsForm = $("#cms");
     var postCategorySelect = $("#category");
     // Giving the postCategorySelect a default value
-    postCategorySelect.val("Personal");
+    postCategorySelect.val("Post");
     // Adding an event listener for when the form is submitted
     $(cmsForm).on("submit", function handleFormSubmit(event) {
       event.preventDefault();
