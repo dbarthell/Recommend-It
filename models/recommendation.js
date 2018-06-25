@@ -24,7 +24,8 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false
     },
     image_url: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      isUrl: true
     }
   });
   return Recommendation;
