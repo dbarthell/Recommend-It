@@ -49,7 +49,7 @@ $(document).ready(function() {
     // Submits a new post and brings user to post page upon completion
     function submitPost(Post) {
       $.post("/api/posts/", Post, function() {
-        window.location.href = "/post";
+        window.location.href = "/newpost";
       });
     }
   
@@ -76,7 +76,7 @@ $(document).ready(function() {
         data: post
       })
         .then(function() {
-          window.location.href = "/post";
+          window.location.href = "/newpost";
         });
     }
   });

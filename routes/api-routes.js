@@ -9,8 +9,8 @@ var db = require("../models");
 
 module.exports = function(app) {
   // Find all posts and return them to the user with res.json
-  app.get("/api/post", function(req, res) {
-    db.Post.findAll({}).then(function(dbPostr) {
+  app.get("/api/posts", function(req, res) {
+    db.Post.findAll({}).then(function(dbPost) {
       res.json(dbPost);
     });
   });
@@ -24,6 +24,16 @@ module.exports = function(app) {
     }).then(function(dbAuthor) {
       res.json(dbAuthor);
     });
+  });
+
+  app.post("/api/posts", function(req, res) {
+    console.log(req.body);
+    db.Recommendation.create({
+      //TODO: create database object
+    })
+      .then(function(dbPost) {
+        res.json(dbPost);
+      });
   });
 
   app.post("/api/authors", function(req, res) {
