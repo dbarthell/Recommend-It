@@ -10,7 +10,7 @@ var db = require("../models");
 module.exports = function(app) {
   
   // Find all posts and return them to the user with res.json
-  app.get("/api/post", function(req, res) {
+  app.get("/api/posts", function(req, res) {
     db.Recommendation.findAll({}).then(function(dbRecommendation) {
       res.json(dbRecommendation);
     });
@@ -18,7 +18,7 @@ module.exports = function(app) {
 
     // Find ALL post with the category in req.params.category and return them to the user with res.json
 
-  app.get("/api/post/:category", function(req, res) {
+  app.get("/api/posts/:category", function(req, res) {
     db.Recommendation.findOne({
       where: {
         category: req.params.category
@@ -30,9 +30,13 @@ module.exports = function(app) {
 
 
   // Route for creating new post
-  app.post("/api/post", function(req, res) {
+  app.post("/api/posts", function(req, res) {
     console.log(req.body);
     db.Recommendation.create({
+      author: req.body.author,
+      title: req.body.title,
+      category: req.body.category,
+      body: req.body.post
     })
       .then(function(dbRecommendation) {
         res.json(dbRecommendation);
@@ -40,7 +44,7 @@ module.exports = function(app) {
   });
 
   // Route for updating content in existing post by id
-  app.put("/api/post", function(req, res) {
+  app.put("/api/posts", function(req, res) {
     console.log(req.body);
     db.Recommendation.update({
       where:{
@@ -52,7 +56,7 @@ module.exports = function(app) {
   });
 
   // Delete existing post by id
-  app.delete("/api/post/:id", function(req, res) {
+  app.delete("/api/posts/:id", function(req, res) {
     db.Recommendation.destroy({
       where: {
         id: req.params.id
