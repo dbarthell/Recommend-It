@@ -5,6 +5,7 @@ module.exports =
     "password": process.env.db_password,
     "database": "recommendations_db",
     "host": "127.0.0.1",
+    "port": 3306,
     "dialect": "mysql"
   },
   "test": {
