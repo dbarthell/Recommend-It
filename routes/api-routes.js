@@ -3,7 +3,7 @@
 // *********************************************************************************************
 
 // Dependencies
-// =============================================================
+// ===========================================================================
 
 var db = require("../models");
 
@@ -15,8 +15,9 @@ module.exports = function(app) {
     });
   });
 
-  app.get("/api/authors/:id", function(req, res) {
-    // Find one Author with the id in req.params.id and return them to the user with res.json
+    // Find ALL post with the category in req.params.id and return them to the user with res.json
+
+  app.get("/api/post/:category", function(req, res) {
     db.Author.findOne({
       where: {
         id: req.params.id
@@ -37,7 +38,6 @@ module.exports = function(app) {
   });
 
   app.post("/api/authors", function(req, res) {
-    // Create an Author with the data available to us in req.body
     console.log(req.body);
     db.Author.create(req.body).then(function(dbAuthor) {
       res.json(dbAuthor);
