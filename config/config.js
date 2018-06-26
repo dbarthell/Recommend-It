@@ -1,7 +1,8 @@
+module.exports = 
 {
   "development": {
-    "username": "root",
-    "password": null,
+    "username": process.env.db_username,
+    "password": process.env.db_password,
     "database": "recommendations_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
@@ -21,3 +22,4 @@
     "dialect": "mysql"
   }
 }
+
