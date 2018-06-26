@@ -3,14 +3,14 @@
 // *********************************************************************************************
 
 // Dependencies
-// =============================================================
+// ===========================================================================
 
 var db = require("../models");
 
 module.exports = function(app) {
   // Find all posts and return them to the user with res.json on the Homepage
   app.get("/api/post", function(req, res) {
-    db.Post.findAll({}).then(function(dbPostr) {
+    db.Post.findAll({}).then(function(dbPost) {
       res.json(dbPost);
     });
   });
@@ -28,6 +28,9 @@ module.exports = function(app) {
   });
 
 
+
+
+  // ===========================================================================
     // Create a post with the data available to us in req.body
 
   app.post("/api/authors", function(req, res) {
