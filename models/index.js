@@ -6,6 +6,8 @@ var Sequelize = require('sequelize');
 var basename  = path.basename(__filename);
 var env       = process.env.NODE_ENV || 'development';
 var config    = require(__dirname + '/../config/config.json')[env];
+// fix for Windows User
+// var config    = require(path.join(__dirname, '..', 'config', 'config.json'))[env];
 var db        = {};
 
 if (config.use_env_variable) {
