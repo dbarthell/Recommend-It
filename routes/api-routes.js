@@ -34,9 +34,9 @@ module.exports = function(app) {
     console.log(req.body);
     db.Recommendation.create({
       author: req.body.author,
-      title: req.body.title,
       category: req.body.category,
-      body: req.body.post
+      title: req.body.title,
+      post: req.body.post
     })
       .then(function(dbRecommendation) {
         res.json(dbRecommendation);
