@@ -1,0 +1,29 @@
+body{
+    background-image: url("../img/background.png");
+}
+nav{
+    background-color: #148a9e;
+    color: #fff;
+}
+.recommend-it-headers{
+    font-size: 48px;
+    font-family: 'Paytone One', sans-serif;
+}
+.row{
+    margin:10px;
+}
+.card{
+    border:solid 10px  #9e6d14;
+    border-radius:1.5%;
+}
+
+footer{
+    position:fixed;
+    width:100%;
+    bottom:0;
+    color:#ddd;
+    text-align: center;
+    line-height: 2em;
+    background-color: #148a9e;
+    font-family: 'Paytone One', sans-serif;
+}
