@@ -2,28 +2,41 @@ body{
     background-image: url("../img/background.png");
 }
 nav{
-    background-color: #148a9e;
-    color: #fff;
+    /* background-color: #148a9e; */
+  /* background-color: #9e2814; */
+    background-color: #ff4e50;
 }
-.recommend-it-headers{
+.navbar .recommend-it-headers{
     font-size: 48px;
+    color:#eee;
     font-family: 'Paytone One', sans-serif;
 }
 .row{
     margin:10px;
 }
 .card{
-    border:solid 10px  #9e6d14;
+    /* border:solid 10px  #9e6d14; */
+    border:solid 10px #ffcb85;
     border-radius:1.5%;
 }
-
+.img-fluid{
+    max-width:100%; 
+    height:auto;
+}
+.btn{
+    color:#666;
+    background-color: #fff;
+}
 footer{
     position:fixed;
     width:100%;
     bottom:0;
-    color:#ddd;
+    color:#aaa;
     text-align: center;
     line-height: 2em;
-    background-color: #148a9e;
-    font-family: 'Paytone One', sans-serif;
+    background-color: #ff4e50;
+    font-family:'Righteous', cursive;
+}
+footer .btn{
+    margin-top:15px;
 }
