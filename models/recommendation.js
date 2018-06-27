@@ -16,15 +16,15 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false
     },
     title: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       allowNull: false
     },
     post: {
-      type: Sequelize.TEXT,
+      type: DataTypes.TEXT,
       allowNull: false
     },
     image_url: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       isUrl: true
     }
   });

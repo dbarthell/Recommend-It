@@ -8,51 +8,61 @@
 var db = require("../models");
 
 module.exports = function(app) {
+  
   // Find all posts and return them to the user with res.json
   app.get("/api/posts", function(req, res) {
-    db.Post.findAll({}).then(function(dbPost) {
-      res.json(dbPost);
+    db.Recommendation.findAll({}).then(function(dbRecommendation) {
+      res.json(dbRecommendation);
     });
   });
 
-    // Find ALL post with the category in req.params.id and return them to the user with res.json
+    // Find ALL post with the category in req.params.category and return them to the user with res.json
 
-  app.get("/api/post/:category", function(req, res) {
-    db.Author.findOne({
+  app.get("/api/posts/:category", function(req, res) {
+    db.Recommendation.findOne({
       where: {
-        id: req.params.id
+        category: req.params.category
       }
-    }).then(function(dbAuthor) {
-      res.json(dbAuthor);
+    }).then(function(dbRecommendation) {
+      res.json(dbRecommendation);
     });
   });
 
+
+  // Route for creating new post
   app.post("/api/posts", function(req, res) {
     console.log(req.body);
     db.Recommendation.create({
-      //TODO: create database object
+      author: req.body.author,
+      title: req.body.title,
+      category: req.body.category,
+      body: req.body.post
     })
-      .then(function(dbPost) {
-        res.json(dbPost);
+      .then(function(dbRecommendation) {
+        res.json(dbRecommendation);
       });
   });
 
-  app.post("/api/authors", function(req, res) {
+  // Route for updating content in existing post by id
+  app.put("/api/posts", function(req, res) {
     console.log(req.body);
-    db.Author.create(req.body).then(function(dbAuthor) {
-      res.json(dbAuthor);
+    db.Recommendation.update({
+      where:{
+        id:req.params.id
+      }     
+     }) .then(function(dbRecommendation) {
+      res.json(dbRecommendation);
     });
   });
 
-  app.delete("/api/authors/:id", function(req, res) {
-    // Delete the Author with the id available to us in req.params.id
-    db.Author.destroy({
+  // Delete existing post by id
+  app.delete("/api/posts/:id", function(req, res) {
+    db.Recommendation.destroy({
       where: {
         id: req.params.id
       }
-    }).then(function(dbAuthor) {
-      res.json(dbAuthor);
+    }).then(function(dbRecommendation) {
+      res.json(dbRecommendation);
     });
   });
-
 };
