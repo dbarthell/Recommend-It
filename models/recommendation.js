@@ -26,8 +26,12 @@ module.exports = function (sequelize, DataTypes) {
     image_url: {
       type: DataTypes.STRING,
       isUrl: true
-    }
+    },
+    createdAt: {
+      type: DataTypes.DATE(),
+      //defaultValue: Sequelize.literal('CURRENT_TIMESTAMP(3)'),
+      defaultValue: DataTypes.NOW(),
+  }
   });
   return Recommendation;
-
 };
