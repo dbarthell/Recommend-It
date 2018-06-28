@@ -12,10 +12,9 @@ module.exports = function(app) {
   // Find all posts and return them to the user with res.json (limit results to 10 each page and order by the latest post)
   app.get("/api/posts", function(req, res) {
     db.Recommendation.findAll({
-      where:{
-        limit:10,
-        order: 'createdAt DESC'
-      }
+    order: [
+      ['createdAt', 'DESC']
+    ]
     }).then(function(dbRecommendation) {
       res.json(dbRecommendation);
     });
@@ -27,9 +26,10 @@ module.exports = function(app) {
     db.Recommendation.findAll({
       where: {
         category: req.params.category,
-        limit: 10,
-        order: 'createdAt DESC'
-      }
+      }, 
+      order: [
+        ['createdAt', 'DESC']
+      ]
     }).then(function(dbRecommendation) {
       res.json(dbRecommendation);
     });
