@@ -8,8 +8,6 @@ var env       = process.env.NODE_ENV || 'development';
 // var config    = require(__dirname + '/../config/config.js')[env];
 // fix for Windows User
 var config    = require(path.join(__dirname, '..', 'config', 'config.js'))[env];
-console.log('env: ', env);
-console.log('config path: ', path.join(__dirname, '..', 'config', 'config.js'));
 console.log('env object: ', JSON.stringify(config));
 var db = {};
 
