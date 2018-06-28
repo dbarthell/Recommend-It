@@ -10,6 +10,7 @@ var env       = process.env.NODE_ENV || 'development';
 var config    = require(path.join(__dirname, '..', 'config', 'config.js'))[env];
 console.log('env: ', env);
 console.log('config path: ', path.join(__dirname, '..', 'config', 'config.js'));
+console.log('env object: ', JSON.stringify(config));
 var db = {};
 
 if (config.use_env_variable) {
