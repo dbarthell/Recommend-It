@@ -4,7 +4,7 @@ $(document).ready(function() {
     var postContainer = $(".row");
     var postCategorySelect = $("#category");
     // Click events for the edit and delete buttons
-    $(document).on("click", "button.delete", handlePostDelete);
+    $(document).on("click", ".btn-danger", handlePostDelete);
     $(document).on("click", "button.edit", handlePostEdit);
     postCategorySelect.on("change", handleCategoryChange);
     var posts;
@@ -59,7 +59,7 @@ $(document).ready(function() {
       newPostCard.addClass("post-container");
       var newPostCardImage = $("<img>");
       newPostCardImage.addClass("card-img img-fluid");
-      newPostCardImage.attr("src","http://via.placeholder.com/150x150");
+      newPostCardImage.attr("src", post.image_url);
       var newPostCardBody = $("<div>");
       newPostCardBody.addClass("card-body");          
       var newPostCardTitle = $("<h5>");
@@ -101,8 +101,8 @@ $(document).ready(function() {
       var currentPost = $(this)
         .parent()
         .parent()
-        .data("post");
-      deletePost(currentPost.id);
+        .parent();
+      deletePost(currentPost[0].id);
     }
   
     // This function figures out which post we want to edit and takes it to the
