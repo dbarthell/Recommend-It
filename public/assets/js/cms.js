@@ -30,7 +30,7 @@ $(document).ready(function() {
       // Constructing a newPost object to hand to the database
       var newPost = {
         author: authorInput.val(),
-        category: postCategorySelect.val(),
+        category: "books",
         title: titleInput.val().trim(),
         post: bodyInput.val().trim(),
         imgURL: imgURLInput.val()
