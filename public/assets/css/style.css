@@ -5,18 +5,33 @@ nav{
     /* background-color: #148a9e; */
   /* background-color: #9e2814; */
     background-color: #ff4e50;
+
 }
 .navbar .recommend-it-headers{
     font-size: 48px;
     color:#eee;
     font-family: 'Paytone One', sans-serif;
 }
+.main-container{
+    width:100%;
+}
 .row{
     margin:10px;
 }
+.post-container{
+    border: solid 10px #ffcb85;
+    background-color: #ddd;
+    margin:2%;
+}
+.form-container{
+    border: solid 10px #ffcb85;
+    background-color: #ddd;
+    margin:2%;
+    padding:5%;
+}
 .card{
     /* border:solid 10px  #9e6d14; */
-    border:solid 10px #ffcb85;
+    /* border:solid 10px #ffcb85; */
     border-radius:1.5%;
 }
 .img-fluid{
@@ -28,12 +43,10 @@ nav{
     background-color: #fff;
 }
 footer{
-    position:fixed;
+    position: absolute;
     width:100%;
-    bottom:0;
     color:#aaa;
     text-align: center;
-    line-height: 2em;
     background-color: #ff4e50;
     font-family:'Righteous', cursive;
 }
