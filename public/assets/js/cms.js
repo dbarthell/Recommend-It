@@ -33,7 +33,7 @@ $(document).ready(function() {
         category: "books",
         title: titleInput.val().trim(),
         post: bodyInput.val().trim(),
-        imgURL: imgURLInput.val()
+        image_url: imgURLInput.val()
       };
   
       console.log(newPost);
