@@ -56,7 +56,7 @@ module.exports = function(app) {
     console.log(req.body);
     db.Recommendation.update({
       where:{
-        id:req.params.id,
+        id:req.body.post.id,
       }     
      }) .then(function(dbRecommendation) {
       res.json(dbRecommendation);

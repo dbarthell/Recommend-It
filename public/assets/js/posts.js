@@ -5,7 +5,7 @@ $(document).ready(function() {
     var postCategorySelect = $("#category");
     // Click events for the edit and delete buttons
     $(document).on("click", ".btn-danger", handlePostDelete);
-    $(document).on("click", "button.edit", handlePostEdit);
+    $(document).on("click", ".btn-primary", handlePostEdit);
     postCategorySelect.on("change", handleCategoryChange);
     var posts;
   
@@ -112,8 +112,9 @@ $(document).ready(function() {
       var currentPost = $(this)
         .parent()
         .parent()
+        .parent()
         .data("post");
-      window.location.href = "/newpost" + currentPost.id;
+      window.location.href = "/newpost?id=" + currentPost.id;
     }
   
     // This function displays a message when there are no posts
