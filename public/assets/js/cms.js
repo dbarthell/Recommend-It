@@ -13,10 +13,12 @@ $(document).ready(function() {
     }
   
     // Getting jQuery references to the post body, title, form, and category select
+    var authorInput = $("#author");
     var bodyInput = $("#body");
     var titleInput = $("#title");
     var cmsForm = $("#cms");
     var postCategorySelect = $("#category");
+    var imgURLInput = $("#img-url");    
     // Giving the postCategorySelect a default value
     postCategorySelect.val("Post");
     // Adding an event listener for when the form is submitted
@@ -28,9 +30,11 @@ $(document).ready(function() {
       }
       // Constructing a newPost object to hand to the database
       var newPost = {
+        author: authorInput.val(),
+        category: postCategorySelect.val(),
         title: titleInput.val().trim(),
-        body: bodyInput.val().trim(),
-        category: postCategorySelect.val()
+        post: bodyInput.val().trim(),
+        imgURL: imgURLInput.val()
       };
   
       console.log(newPost);
@@ -49,7 +53,7 @@ $(document).ready(function() {
     // Submits a new post and brings user to post page upon completion
     function submitPost(Post) {
       $.post("/api/posts/", Post, function() {
-        window.location.href = "/newpost";
+        window.location.href = "/";
       });
     }
   
@@ -58,9 +62,11 @@ $(document).ready(function() {
       $.get("/api/posts/" + id, function(data) {
         if (data) {
           // If this post exists, prefill our cms forms with its data
+          authorInput.val(data.author);          
           titleInput.val(data.title);
-          bodyInput.val(data.body);
+          bodyInput.val(data.post);
           postCategorySelect.val(data.category);
+          imgURLInput.val(data.imgURL);          
           // If we have a post with this id, set a flag for us to know to update the post
           // when we hit submit
           updating = true;
