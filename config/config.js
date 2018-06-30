@@ -20,9 +20,10 @@ module.exports =
   "production": {
     "username": process.env.production_username,
     "password": process.env.production_password,
-    "database": "recommendations_db",
+    "database": "cw083bzebvkmxzne",
     "host": process.env.production_host,
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "port": 3306
   }
 }
 
