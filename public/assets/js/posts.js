@@ -120,7 +120,7 @@ $(document).ready(function() {
       postContainer.empty();
       var messageH2 = $("<h2>");
       messageH2.css({ "text-align": "center", "margin-top": "50px" });
-      messageH2.html("No posts yet for this category, navigate <a href='/newpost'>here</a> in order to create a new post.");
+      messageH2.html("Create the first post for this category <a href='/newpost'>here</a> !");
       postContainer.append(messageH2);
     }
   
