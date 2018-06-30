@@ -12,7 +12,7 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false
     },
     category: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false
     },
     title: {
