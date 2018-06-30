@@ -101,8 +101,9 @@ $(document).ready(function() {
       var currentPost = $(this)
         .parent()
         .parent()
-        .parent();
-      deletePost(currentPost[0].id);
+        .parent()
+        .data("post");
+      deletePost(currentPost.id);
     }
   
     // This function figures out which post we want to edit and takes it to the
