@@ -58,7 +58,7 @@ $(document).ready(function() {
     // This function constructs a post's HTML. Handlebars would've been easier...
     function createNewRow(post) {
       var newPostCardCol = $("<div>");
-      newPostCardCol.addClass("col-xs-12 col-md-4 col-lg-3");
+      newPostCardCol.addClass("col-xs-12 col-md-4 col-lg-4");
       var newPostCard = $("<div>");
       newPostCard.addClass("post-container");
       var newPostCardImage = $("<img>");
