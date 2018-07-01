@@ -114,7 +114,8 @@ $(document).ready(function() {
         .parent()
         .parent()
         .data("post");
-      window.location.href = "/newpost?id=" + currentPost.id;
+      console.log(currentPost);
+      window.location.href = "/newpost?post_id=" + currentPost.id;
     }
   
     // This function displays a message when there are no posts
