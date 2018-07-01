@@ -45,6 +45,7 @@ nav{
 .btn{
     color:#666;
     background-color: #fff;
+    margin: 2px;
 }
 footer{
     position: absolute;
