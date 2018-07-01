@@ -58,7 +58,7 @@ $(document).ready(function() {
   
     // Gets post data for a post if we're editing
     function getPostData(id) {
-      $.get("/api/posts/" + id, function(data) {
+      $.get("/api/posts/id/" + id, function(data) {
         if (data) {
           console.log(data);
           // If this post exists, prefill our cms forms with its data
@@ -78,7 +78,7 @@ $(document).ready(function() {
     function updatePost(post) {
       $.ajax({
         method: "PUT",
-        url: "/api/posts",
+        url: "/api/posts/id",
         data: post
       })
         .then(function() {
