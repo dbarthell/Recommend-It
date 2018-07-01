@@ -66,7 +66,7 @@ $(document).ready(function() {
           titleInput.val(data.title);
           bodyInput.val(data.post);
           postCategorySelect.val(data.category);
-          imgURLInput.val(data.imgURL);          
+          imgURLInput.val(data.image_url);          
           // If we have a post with this id, set a flag for us to know to update the post
           // when we hit submit
           updating = true;
