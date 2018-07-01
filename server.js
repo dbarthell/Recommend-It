@@ -6,7 +6,6 @@
 // =============================================================
 require('dotenv').config();
 var express = require("express");
-var paginate = require('express-paginate');
 var bodyParser = require("body-parser");
 
 // Sets up the Express App
