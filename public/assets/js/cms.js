@@ -19,8 +19,7 @@ $(document).ready(function() {
     var cmsForm = $("#cms");
     var postCategorySelect = $("#category");
     var imgURLInput = $("#img-url");    
-    // Giving the postCategorySelect a default value
-    postCategorySelect.val("Post");
+    
     // Adding an event listener for when the form is submitted
     $(cmsForm).on("submit", function handleFormSubmit(event) {
       event.preventDefault();
@@ -31,10 +30,10 @@ $(document).ready(function() {
       // Constructing a newPost object to hand to the database
       var newPost = {
         author: authorInput.val(),
-        category: postCategorySelect.val(),
+        category: "books",
         title: titleInput.val().trim(),
         post: bodyInput.val().trim(),
-        imgURL: imgURLInput.val()
+        image_url: imgURLInput.val()
       };
   
       console.log(newPost);

@@ -1,11 +1,11 @@
 $(document).ready(function() {
     /* global moment */
     // postContainer holds all of our posts
-    var postContainer = $(".post-container");
+    var postContainer = $(".row");
     var postCategorySelect = $("#category");
     // Click events for the edit and delete buttons
-    $(document).on("click", "button.delete", handlePostDelete);
-    $(document).on("click", "button.edit", handlePostEdit);
+    $(document).on("click", ".btn-danger", handlePostDelete);
+    $(document).on("click", ".btn-primary", handlePostEdit);
     postCategorySelect.on("change", handleCategoryChange);
     var posts;
   
@@ -53,50 +53,53 @@ $(document).ready(function() {
   
     // This function constructs a post's HTML
     function createNewRow(post) {
+      var newPostCardCol = $("<div>")
+      newPostCardCol.addClass("col-xs-12 col-md-4 col-lg-3")
       var newPostCard = $("<div>");
-      newPostCard.addClass("card");
-      var newPostCardHeading = $("<div>");
-      newPostCardHeading.addClass("card-header");
-      var deleteBtn = $("<button>");
-      deleteBtn.text("x");
-      deleteBtn.addClass("delete btn btn-danger");
-      var editBtn = $("<button>");
-      editBtn.text("EDIT");
-      editBtn.addClass("edit btn btn-default");
-      var newPostTitle = $("<h2>");
-      var newPostDate = $("<small>");
-      var newPostCategory = $("<h5>");
-      newPostCategory.text(post.category);
-      newPostCategory.css({
-        float: "right",
-        "font-weight": "700",
-        "margin-top":
-        "-15px"
-      });
+      newPostCard.addClass("post-container");
+      var newPostCardImage = $("<img>");
+      newPostCardImage.addClass("card-img img-fluid");
+      newPostCardImage.attr("src", post.image_url);
       var newPostCardBody = $("<div>");
-      newPostCardBody.addClass("card-body");
-      var newPostBody = $("<p>");
-      newPostTitle.text(post.title + " ");
-      newPostBody.text(post.body);
-      var formattedDate = new Date(post.createdAt);
-      formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a");
-      newPostDate.text(formattedDate);
-      newPostTitle.append(newPostDate);
-      newPostCardHeading.append(deleteBtn);
-      newPostCardHeading.append(editBtn);
-      newPostCardHeading.append(newPostTitle);
-      newPostCardHeading.append(newPostCategory);
-      newPostCardBody.append(newPostBody);
-      newPostCard.append(newPostCardHeading);
+      newPostCardBody.addClass("card-body");          
+      var newPostCardTitle = $("<h5>");
+      newPostCardTitle.addClass("card-title");
+      newPostCardTitle.text(post.title);
+      var newPostCardText = $("<p>");
+      newPostCardText.addClass("card-text");
+      newPostCardText.text(post.post);
+      var newPostCardSmallText = $("<p>");
+      newPostCardSmallText.addClass("card-text");
+      var newPostCardSmall = $("<small>");
+      newPostCardSmall.addClass("text-muted");
+      newPostCardSmall.text(post.category);                  
+      var editBtn = $("<a>");
+      editBtn.text("Edit Post");
+      editBtn.addClass("btn btn-primary");
+      editBtn.attr("href", "#");    
+      var deleteBtn = $("<a>");
+      deleteBtn.text("Delete");
+      deleteBtn.addClass("btn btn-danger");
+      deleteBtn.attr("href", "#");    
+
+      newPostCard.append(newPostCardImage);
+      newPostCardSmallText.append(newPostCardSmall);
+      newPostCardBody.append(newPostCardTitle);
+      newPostCardBody.append(newPostCardText);
+      newPostCardBody.append(newPostCardSmallText);
+      newPostCardBody.append(editBtn);
+      newPostCardBody.append(deleteBtn);
       newPostCard.append(newPostCardBody);
-      newPostCard.data("post", post);
-      return newPostCard;
+      newPostCardCol.append(newPostCard);
+      newPostCardCol.data("post", post);
+      return newPostCardCol;
     }
   
     // This function figures out which post we want to delete and then calls
     // deletePost
     function handlePostDelete() {
       var currentPost = $(this)
+        .parent()
         .parent()
         .parent()
         .data("post");
@@ -109,8 +112,9 @@ $(document).ready(function() {
       var currentPost = $(this)
         .parent()
         .parent()
+        .parent()
         .data("post");
-      window.location.href = "/newpost" + currentPost.id;
+      window.location.href = "/newpost?id=" + currentPost.id;
     }
   
     // This function displays a message when there are no posts
@@ -118,7 +122,7 @@ $(document).ready(function() {
       postContainer.empty();
       var messageH2 = $("<h2>");
       messageH2.css({ "text-align": "center", "margin-top": "50px" });
-      messageH2.html("No posts yet for this category, navigate <a href='/newpost'>here</a> in order to create a new post.");
+      messageH2.html("Create the first post for this category <a href='/newpost'>here</a> !");
       postContainer.append(messageH2);
     }
   

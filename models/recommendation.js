@@ -12,7 +12,7 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false
     },
     category: {
-      type: DataTypes.ENUM('books', 'movies', 'shows', 'songs', 'restaurants'),
+      type: DataTypes.STRING,
       allowNull: false
     },
     title: {
