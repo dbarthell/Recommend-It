@@ -14,10 +14,11 @@ nav{
 }
 .main-container{
     width:100%;
+    margin-bottom: 150px;
 }
 .row{
     margin:10px;
-}
+}   
 .post-container{
     border: solid 10px #ffcb85;
     background-color: #ddd;
@@ -54,5 +55,5 @@ footer{
     font-family:'Righteous', cursive;
 }
 footer .btn{
-    margin-top:15px;
+    margin:15px;
 }
