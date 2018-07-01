@@ -38,7 +38,7 @@ $(document).ready(function() {
         url: "/api/posts/" + id
       })
         .then(function() {
-          getPosts(postCategorySelect.val());
+          getPosts();
         });
     }
   
