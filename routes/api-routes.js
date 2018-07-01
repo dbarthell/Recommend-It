@@ -36,7 +36,7 @@ module.exports = function (app) {
   });
 
   // Get route for retrieving a single post
-  app.get("/api/posts/:id", function (req, res) {
+  app.get("/api/posts/id/:id", function (req, res) {
     db.Recommendation.findOne({
       where: {
         id: req.params.id
@@ -63,7 +63,7 @@ module.exports = function (app) {
   });
 
   // Route for updating content in existing post by id
-  app.put("/api/posts/", function (req, res) {
+  app.put("/api/posts/id", function (req, res) {
     db.Recommendation.update(req.body,
       {
         where: {
