@@ -8,14 +8,18 @@ $(document).ready(function() {
     $(document).on("click", ".btn-primary", handlePostEdit);
     postCategorySelect.on("change", handleCategoryChange);
     var posts;
+
+    // Change events for the category menu to get all posts based on category
+    $( "#category" ).change(function() {
+      event.preventDefault();
+      var category = $(this).find('option:selected').text();
+      getPosts(category);
+    });
   
     // This function grabs posts from the database and updates the view
     function getPosts(category) {
       var categoryString = category || "";
-      if (categoryString) {
-        categoryString = "/category/" + categoryString;
-      }
-      $.get("/api/posts" + categoryString, function(data) {
+      $.get("/api/posts/" + categoryString, function(data) {
         console.log("Posts", data);
         posts = data;``
         if (!posts || !posts.length) {
