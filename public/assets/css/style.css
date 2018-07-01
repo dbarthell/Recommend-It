@@ -22,6 +22,7 @@ nav{
     border: solid 10px #ffcb85;
     background-color: #ddd;
     margin:2%;
+    max-height: 100em;
 }
 .form-container{
     border: solid 10px #ffcb85;
@@ -33,6 +34,9 @@ nav{
     /* border:solid 10px  #9e6d14; */
     /* border:solid 10px #ffcb85; */
     border-radius:1.5%;
+}
+.card-text{
+    overflow: hidden;
 }
 .img-fluid{
     max-width:100%; 

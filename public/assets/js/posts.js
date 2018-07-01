@@ -57,8 +57,8 @@ $(document).ready(function() {
   
     // This function constructs a post's HTML
     function createNewRow(post) {
-      var newPostCardCol = $("<div>")
-      newPostCardCol.addClass("col-xs-12 col-md-4 col-lg-3")
+      var newPostCardCol = $("<div>");
+      newPostCardCol.addClass("col-xs-12 col-md-4 col-lg-3");
       var newPostCard = $("<div>");
       newPostCard.addClass("post-container");
       var newPostCardImage = $("<img>");
