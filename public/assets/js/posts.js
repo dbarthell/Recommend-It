@@ -55,7 +55,7 @@ $(document).ready(function() {
       postContainer.append(postsToAdd);
     }
   
-    // This function constructs a post's HTML
+    // This function constructs a post's HTML. Handlebars would've been easier...
     function createNewRow(post) {
       var newPostCardCol = $("<div>");
       newPostCardCol.addClass("col-xs-12 col-md-4 col-lg-3");
@@ -78,7 +78,7 @@ $(document).ready(function() {
       newPostCardSmall.addClass("text-muted");
       newPostCardSmall.text(post.category);                  
       var editBtn = $("<a>");
-      editBtn.text("Edit Post");
+      editBtn.text("Edit");
       editBtn.addClass("btn btn-primary");
       editBtn.attr("href", "#");    
       var deleteBtn = $("<a>");
