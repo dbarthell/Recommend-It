@@ -1,7 +1,7 @@
 $(document).ready(function() {
     /* global moment */
     // postContainer holds all of our posts
-    var postContainer = $(".row");
+    var postContainer = $(".card-columns");
     var postCategorySelect = $("#category");
     // Click events for the edit and delete buttons
     $(document).on("click", ".btn-danger", handlePostDelete);
@@ -57,10 +57,8 @@ $(document).ready(function() {
   
     // This function constructs a post's HTML. Handlebars would've been easier...
     function createNewRow(post) {
-      var newPostCardCol = $("<div>");
-      newPostCardCol.addClass("col-xs-12 col-md-4 col-lg-4");
       var newPostCard = $("<div>");
-      newPostCard.addClass("post-container");
+      newPostCard.addClass("post-container card");
       var newPostCardImage = $("<img>");
       newPostCardImage.addClass("card-img img-fluid");
       newPostCardImage.attr("src", post.image_url);
@@ -72,6 +70,8 @@ $(document).ready(function() {
       var newPostCardText = $("<p>");
       newPostCardText.addClass("card-text");
       newPostCardText.text(post.post);
+     // var newModalButton=$("<button type'button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal'>");
+     // var newModal=$("<div class='modal fade' id='exampleModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>");
       var newPostCardSmallText = $("<p>");
       newPostCardSmallText.addClass("card-text");
       var newPostCardSmall = $("<small>");
@@ -90,20 +90,20 @@ $(document).ready(function() {
       newPostCardSmallText.append(newPostCardSmall);
       newPostCardBody.append(newPostCardTitle);
       newPostCardBody.append(newPostCardText);
+      // newPostCardText.append(newModal);
+      // newPostCardText.append(newModalButton);
       newPostCardBody.append(newPostCardSmallText);
       newPostCardBody.append(editBtn);
       newPostCardBody.append(deleteBtn);
       newPostCard.append(newPostCardBody);
-      newPostCardCol.append(newPostCard);
-      newPostCardCol.data("post", post);
-      return newPostCardCol;
+      newPostCard.data("post", post);
+      return newPostCard;
     }
   
     // This function figures out which post we want to delete and then calls
     // deletePost
     function handlePostDelete() {
       var currentPost = $(this)
-        .parent()
         .parent()
         .parent()
         .data("post");
@@ -114,7 +114,6 @@ $(document).ready(function() {
     // Appropriate url
     function handlePostEdit() {
       var currentPost = $(this)
-        .parent()
         .parent()
         .parent()
         .data("post");
