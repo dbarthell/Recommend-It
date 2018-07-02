@@ -8,6 +8,11 @@ $(document).ready(function() {
   $(document).on("click", ".btn-primary", handlePostEdit);
   postCategorySelect.on("change", handleCategoryChange);
   var posts;
+  // =================
+  //KB: Click events for the comments button
+  $(document).on("click",".btn-success",function(){
+    $(".comments").toggleClass("hidden");
+  })
 
   // Change events for the category menu to get all posts based on category
   $("#category").change(function() {
@@ -73,32 +78,28 @@ $(document).ready(function() {
     newPostCardText.text(post.post);
     //============
     //KB: Adding in Bootstrap 4 modals dynamically. post.comments does not exist yet. Once Joe and Nerita get the comments model up and running we can add it in.
+    //KB: This sntax isn't as secure as the syntax above for adding elements dynamically. I only added it in this way in order to show visually all the components that might be necessary for the bootstrap modal feature. 
+    
     var newModalButton = `<a href="#" class="anchor-modal" data-toggle="modal" data-target="#exampleModal">
     See more...
   </a>`;
-    var newModal =
-      `<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    var newModal = `<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">` +
-      post.title +
-      " vouched for by " +
-      post.author +
-      `</h5>
+          <h5 class="modal-title" id="exampleModalLabel">${post.title} vouched for by ${post.author}
+    </h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-        <div class="post">` +
-      post.post +
-      `
+        <div class="post">
+     ${post.post}
         </div>
          <button type="button" class="btn btn-success">Comments</button>
-         <div class="comments">` +
-      "This is where post.comments can generate at some point. Maybe as table rows?" +
-      `
+         <div class="comments hidden">
+      "This is where post.comments can generate at some point. Maybe as table rows?"
       </div>
          </div>
       </div>
