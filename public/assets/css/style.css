@@ -21,13 +21,13 @@ body{
 }   
 .post-container{
     border: solid 10px #ffcb85;
-    background-color: #ddd;
+    background-color: #eee;
     margin:2%;
     max-height: 100em;
 }
 .form-container{
     border: solid 10px #ffcb85;
-    background-color: #ddd;
+    background-color: #eee;
     margin:2%;
     padding:5%;
 }
@@ -52,6 +52,13 @@ body{
     background-color: #fff;
     margin: 2px;
 }
+.anchor-modal{
+    display:block;
+    color:#cca26a; 
+}
+/* .comments{
+    display:none;
+} */
 /* footer{
     color:#aaa;
     text-align: center;
