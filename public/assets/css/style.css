@@ -56,9 +56,10 @@ body{
     display:block;
     color:#cca26a; 
 }
-/* .comments{
+.hidden{
     display:none;
-} */
+}
+ 
 /* footer{
     color:#aaa;
     text-align: center;
