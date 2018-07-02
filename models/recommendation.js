@@ -37,5 +37,9 @@ module.exports = function (sequelize, DataTypes) {
       defaultValue: DataTypes.NOW(),
     }
   });
+
+  Recommendation.associate = function(models) {
+    Recommendation.hasMany(models.Comment,{as : 'comments',foreignKey: 'postId'})
+  }
   return Recommendation;
 };
