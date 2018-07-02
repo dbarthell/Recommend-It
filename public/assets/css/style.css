@@ -1,7 +1,7 @@
 body{
     background-image: url("../img/background.png");
 }
-nav{
+.navbar-header{
     /* background-color: #148a9e; */
   /* background-color: #9e2814; */
     background-color: #ff4e50;
@@ -14,20 +14,20 @@ nav{
 }
 .main-container{
     width:100%;
-    margin-bottom: 150px;
+    margin-bottom:25px;
 }
 .row{
     margin:10px;
 }   
 .post-container{
     border: solid 10px #ffcb85;
-    background-color: #ddd;
+    background-color: #eee;
     margin:2%;
     max-height: 100em;
 }
 .form-container{
     border: solid 10px #ffcb85;
-    background-color: #ddd;
+    background-color: #eee;
     margin:2%;
     padding:5%;
 }
@@ -39,21 +39,32 @@ nav{
 .card-text{
     overflow: hidden;
 }
+.card-columns{
+    display: inline-block;
+}
 .img-fluid{
     max-width:100%; 
     height:auto;
 }
+
 .btn{
-    color:#666;
+    color:#444;
     background-color: #fff;
     margin: 2px;
 }
-footer{
+.anchor-modal{
+    display:block;
+    color:#cca26a; 
+}
+/* .comments{
+    display:none;
+} */
+/* footer{
     color:#aaa;
     text-align: center;
     background-color: #ff4e50;
     font-family:'Righteous', cursive;
-}
-footer .btn{
+} */
+/* footer .btn{
     margin:15px;
-}
+} */
