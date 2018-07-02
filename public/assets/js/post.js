@@ -6,7 +6,7 @@ $(document).ready(function() {
     var updating = false;
   
     // If we have this section in our url, we pull out the post id from the url
-    // In localhost:8080/cms?post_id=1, postId is 1
+    // In localhost:8080/newpost?post_id=1, postId is 1
     if (url.indexOf("?post_id=") !== -1) {
       postId = url.split("=")[1];
       getPostData(postId);
@@ -30,7 +30,7 @@ $(document).ready(function() {
       // Constructing a newPost object to hand to the database
       var newPost = {
         author: authorInput.val(),
-        category: "books",
+        category: $(this).find('option:selected').text(),
         title: titleInput.val().trim(),
         post: bodyInput.val().trim(),
         image_url: imgURLInput.val()
@@ -58,14 +58,15 @@ $(document).ready(function() {
   
     // Gets post data for a post if we're editing
     function getPostData(id) {
-      $.get("/api/posts/" + id, function(data) {
+      $.get("/api/posts/id/" + id, function(data) {
         if (data) {
+          console.log(data);
           // If this post exists, prefill our cms forms with its data
           authorInput.val(data.author);          
           titleInput.val(data.title);
           bodyInput.val(data.post);
           postCategorySelect.val(data.category);
-          imgURLInput.val(data.imgURL);          
+          imgURLInput.val(data.image_url);          
           // If we have a post with this id, set a flag for us to know to update the post
           // when we hit submit
           updating = true;
@@ -77,11 +78,11 @@ $(document).ready(function() {
     function updatePost(post) {
       $.ajax({
         method: "PUT",
-        url: "/api/posts",
+        url: "/api/posts/id",
         data: post
       })
         .then(function() {
-          window.location.href = "/newpost";
+          window.location.href = "/";
         });
     }
   });
