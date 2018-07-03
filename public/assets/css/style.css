@@ -16,8 +16,9 @@ body{
     width:100%;
     margin-bottom:25px;
 }
-.text-muted{
+.text-muted:hover{
     cursor: pointer;
+    text-decoration: underline;
 }
 .row{
     margin:10px;
