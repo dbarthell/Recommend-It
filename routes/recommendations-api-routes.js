@@ -8,13 +8,14 @@
 var db = require("../models");
 
 module.exports = function (app) {
-
+// console.log (db)
   // Find all posts and return them to the user with res.json (limit results to 10 each page and order by the latest post)
   app.get("/api/posts", function (req, res) {
     db.Recommendation.findAll({
       order: [
         ['createdAt', 'DESC']
-      ]
+      ],
+      include:[{model:db.Comment, as:'comments'}]
     }).then(function (dbRecommendation) {
       res.json(dbRecommendation);
     });
@@ -29,7 +30,8 @@ module.exports = function (app) {
       },
       order: [
         ['createdAt', 'DESC']
-      ]
+      ],
+      include:[{model:db.Comment, as:'comments'}]
     }).then(function (dbRecommendation) {
       res.json(dbRecommendation);
     });
@@ -40,12 +42,12 @@ module.exports = function (app) {
     db.Recommendation.findOne({
       where: {
         id: req.params.id
-      }
+      },
+      include:[{model:db.Comment, as:'comments'}]
     }).then(function (dbRecommendation) {
         res.json(dbRecommendation);
       });
   });
-
 
   // Route for creating new post
   app.post("/api/posts", function (req, res) {
@@ -84,4 +86,17 @@ module.exports = function (app) {
       res.json(dbRecommendation);
     });
   });
+
+  // Creating comments for posts by id
+    app.post("/api/comments", function (req, res) {
+      console.log(req.body);
+      db.Comments.create({
+        commenter: req.body.commenter,
+        comment: req.body.comment
+      })
+        .then(function (dbComments) {
+          res.json(dbComments);
+        });
+    });
+
 };
