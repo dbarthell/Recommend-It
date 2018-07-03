@@ -8,14 +8,14 @@
 var db = require("../models");
 
 module.exports = function (app) {
-
+// console.log (db)
   // Find all posts and return them to the user with res.json (limit results to 10 each page and order by the latest post)
   app.get("/api/posts", function (req, res) {
     db.Recommendation.findAll({
       order: [
         ['createdAt', 'DESC']
       ],
-      include:[db.Comment]
+      include:[{model:db.Comment, as:'comments'}]
     }).then(function (dbRecommendation) {
       res.json(dbRecommendation);
     });
@@ -31,7 +31,7 @@ module.exports = function (app) {
       order: [
         ['createdAt', 'DESC']
       ],
-      include:[db.Comment]
+      include:[{model:db.Comment, as:'comments'}]
     }).then(function (dbRecommendation) {
       res.json(dbRecommendation);
     });
@@ -43,7 +43,7 @@ module.exports = function (app) {
       where: {
         id: req.params.id
       },
-      include:[db.Comment]
+      include:[{model:db.Comment, as:'comments'}]
     }).then(function (dbRecommendation) {
         res.json(dbRecommendation);
       });

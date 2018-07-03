@@ -31,11 +31,11 @@ module.exports = function (app) {
       });
   });
 
-  // Delete existing comment by id
-  app.delete("/api/comment/:id", function (req, res) {
+  // Delete existing comment by post id
+  app.delete("/api/comment/:postId", function (req, res) {
     db.Comment.destroy({
       where: {
-        id: req.params.id
+        postId: req.params.postId
       }
     }).then(function (dbComment) {
       res.json(dbComment);
