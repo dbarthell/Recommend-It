@@ -27,6 +27,17 @@ $(document).ready(function () {
     }
   });
 
+  // On click of small text categories, get all posts of that category
+  $(document).on("click", ".text-muted", function () {
+    var category = $(this).text();
+    if (category === "All Categories") {
+      getPosts();
+    } else {
+      getPosts(category);
+    }
+  });
+
+
   // This function grabs posts from the database and updates the view
   function getPosts(category) {
     var categoryString = category || "";
