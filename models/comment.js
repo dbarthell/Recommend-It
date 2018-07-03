@@ -2,11 +2,11 @@
 
 module.exports = function(sequelize, DataTypes) {
     var Comment = sequelize.define('Comment', {
-        title: {
+        body: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        body: {
+        author: {
             type: DataTypes.STRING,
             allowNull: false
         },
