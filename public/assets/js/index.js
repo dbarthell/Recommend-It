@@ -175,7 +175,7 @@ $(document).ready(function () {
     var messageH2 = $("<h2>");
     messageH2.css({ "text-align": "center", "margin-top": "50px" });
     messageH2.html(
-      "Create the first post for this category <a href='/newpost'>here</a> !"
+      "Create <a href='/newpost'>new</a> category!"
     );
     postContainer.append(messageH2);
   }
