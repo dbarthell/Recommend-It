@@ -14,7 +14,8 @@ module.exports = function (app) {
     db.Recommendation.findAll({
       order: [
         ['createdAt', 'DESC']
-      ]
+      ],
+      include:[db.Comment]
     }).then(function (dbRecommendation) {
       res.json(dbRecommendation);
     });
@@ -29,7 +30,8 @@ module.exports = function (app) {
       },
       order: [
         ['createdAt', 'DESC']
-      ]
+      ],
+      include:[db.Comment]
     }).then(function (dbRecommendation) {
       res.json(dbRecommendation);
     });
@@ -40,12 +42,12 @@ module.exports = function (app) {
     db.Recommendation.findOne({
       where: {
         id: req.params.id
-      }
+      },
+      include:[db.Comment]
     }).then(function (dbRecommendation) {
         res.json(dbRecommendation);
       });
   });
-
 
   // Route for creating new post
   app.post("/api/posts", function (req, res) {
@@ -84,4 +86,17 @@ module.exports = function (app) {
       res.json(dbRecommendation);
     });
   });
+
+  // Creating comments for posts by id
+    app.post("/api/comments", function (req, res) {
+      console.log(req.body);
+      db.Comments.create({
+        commenter: req.body.commenter,
+        comment: req.body.comment
+      })
+        .then(function (dbComments) {
+          res.json(dbComments);
+        });
+    });
+
 };
