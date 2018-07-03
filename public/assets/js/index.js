@@ -12,7 +12,7 @@ $(document).ready(function () {
   //KB: Click events for the comments button
   $(document).on("click", ".btn-success", function () {
     $(".comments").toggleClass("hidden");
-  })
+  });
 
   // Change events for the category menu to get all posts based on category
   $("#category").change(function () {
@@ -102,20 +102,40 @@ $(document).ready(function () {
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">${post.title} vouched for by ${post.author}
+          <h5 class="modal-title" id="exampleModalLabel">${
+            post.title
+          } vouched for by ${post.author}
     </h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
+        <img class="card-img img-fluid" src=${post.image_url}>
+        <br><br>
         <div class="post">
      ${post.post}
         </div>
-         <button type="button" class="btn btn-success">Comments</button>
+        <br>
+        <br>      
+   <button type="button" class="btn btn-success">Add Comment</button>
          <div class="comments hidden">
-      "This is where post.comments can generate at some point. Maybe as table rows?"
+
+      <label for="author"><br>User:</label>
+      <input type="text" class="form-control author" id="author">
+      <label for="body">Comment:</label>
+       <textarea class="form-control body" id="body" rows="2"></textarea>
+       <button type="submit" class="btn submit">Submit Comment</button>
       </div>
+      <br><br>
+         <div class="all-comments"> 
+         This is where post.comments can generate at some point. Maybe as table rows?
+         <br><br> Lorizzle ipsizzle dolizzle gangster yo, the bizzle adipiscing stuff. Gizzle sapien velit, for sure volutpizzle, suscipizzle shizznit, gravida vizzle, arcu. Pellentesque boofron shizzle my nizzle crocodizzle. Sizzle erizzle. Yippiyo izzle dolor dapibizzle stuff tempizzle gangster. Mauris pellentesque nibh izzle turpis. Gangsta izzle fo shizzle my nizzle. Pellentesque eleifend rhoncizzle . In hizzle habitasse platea dictumst. Donec dapibizzle. Curabitizzle fo shizzle urna, pretizzle eu, izzle ac, eleifend nizzle, nunc. Break yo neck, yall da bomb. Integer sempizzle i saw beyonces tizzles and my pizzle went crizzle sed we gonna chung.
+
+         Praesent my shizz turpizzle mah nizzle uhuh ... yih! break yo neck, yall molestie. Crackalackin fizzle black vizzle bling bling. Nizzle fizzle ornare pimpin'. Morbi crunk, nisl nizzle bibendizzle bizzle, magna dolor vestibulizzle its fo rizzle, sheezy auctizzle justo mammasay mammasa mamma oo sa cool augue. Sheezy id elizzle da bomb amizzle erizzle adipiscing mofo. Vivamizzle tempor pede ut yo mamma. In rhoncus leo. Things ipsum dolizzle sizzle bling bling, get down get down adipiscing that's the shizzle. Gangster nisi ligula, daahng dawg dizzle check it out, facilisis sizzle, tellivizzle mattizzle, dope. Curabitizzle semper faucibus dope. Ut nizzle fo shizzle. Nunc you son of a bizzle mofo phat diam accumsizzle egestizzle. Quisque gangsta metizzle pimpin' nunc. Fizzle own yo', izzle quizzle varizzle lacinia, that's the shizzle dizzle commodo felis, nizzle ullamcorper eros nisl shit nisi. Ma nizzle leo quam, own yo' sizzle amet, ornare vitae, pulvinar pulvinizzle, mah nizzle.
+         
+         Sure away mofo in fizzle hizzle consequat. In convallis, arcu izzle check out this posuere, nulla lorizzle crackalackin crazy, a blandit owned go to hizzle sizzle i'm in the shizzle. Gangster izzle diam yippiyo black varizzle sizzle. Curabitizzle dang nisi, pot izzle, porta eleifend, tincidunt izzle, metus. Nunc uhuh ... yih! neque. Shizznit ipsizzle dolizzle sizzle amet, consectetizzle adipiscing elit. Maecenas its fo rizzle crazy. In congue. Vestibulum izzle erizzle check out this velit aliquet dictum. Pizzle facilisizzle we gonna chung fizzle amizzle nibh. Crizzle commodo. Crazy eu ante izzle pimpin' lacinia sagittis. Aenean non massa shut the shizzle up urna break it down lobortis. Suspendisse enizzle est, break it down pulvinar, ornare brizzle, doggy bizzle, bling bling. Crazy egizzle dizzle at tellivizzle adipiscing tempor. Curabitizzle et sheezy quizzle tellizzle get down get down nonummy.
+        </div>
          </div>
       </div>
     </div>
