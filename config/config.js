@@ -22,7 +22,8 @@ module.exports =
     "password": process.env.production_password,
     "database": "cw083bzebvkmxzne",
     "host": process.env.production_host,
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "port": 3306
   }
 }
 
