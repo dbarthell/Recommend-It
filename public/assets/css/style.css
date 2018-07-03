@@ -16,6 +16,9 @@ body{
     width:100%;
     margin-bottom:25px;
 }
+.text-muted{
+    cursor: pointer;
+}
 .row{
     margin:10px;
 }   
