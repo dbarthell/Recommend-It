@@ -1,5 +1,8 @@
 $(document).ready(function () {
   /* global moment */
+  // Initialize AOS
+  AOS.init();
+
   // postContainer holds all of our posts
   var postContainer = $(".card-columns");
   var postCategorySelect = $("#category");
@@ -8,6 +11,7 @@ $(document).ready(function () {
   $(document).on("click", ".btn-primary", handlePostEdit);
   postCategorySelect.on("change", handleCategoryChange);
   var posts;
+
   // =================
   //KB: Click events for the comments button
   $(document).on("click", ".btn-success", function () {
@@ -103,8 +107,8 @@ $(document).ready(function () {
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">${
-            post.title
-          } vouched for by ${post.author}
+      post.title
+      } vouched for by ${post.author}
     </h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -165,6 +169,7 @@ $(document).ready(function () {
     newPostCardBody.append(deleteBtn);
     newPostCard.append(newPostCardBody);
     newPostCard.data("post", post);
+    newPostCard.attr("data-aos", "zoom-in");
     return newPostCard;
   }
 
