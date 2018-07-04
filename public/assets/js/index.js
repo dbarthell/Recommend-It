@@ -3,6 +3,7 @@ $(document).ready(function () {
   // Initialize AOS
   AOS.init();
 
+
   // postContainer holds all of our posts
   var postContainer = $(".card-columns");
   var postCategorySelect = $("#category");
@@ -17,6 +18,11 @@ $(document).ready(function () {
   $(document).on("click", ".btn-success", function () {
     $(".comments").toggleClass("hidden");
   });
+
+  $(document).on("click", ".anchor-modal", function (){
+    postContainer.removeAttr("data-aos");
+  }); 
+
 
   // Change events for the category menu to get all posts based on category
   $("#category").change(function () {
@@ -48,7 +54,6 @@ $(document).ready(function () {
     $.get("/api/posts/" + categoryString, function (data) {
       console.log("Posts", data);
       posts = data;
-      ``;
       if (!posts || !posts.length) {
         displayEmpty();
       } else {
@@ -84,6 +89,7 @@ $(document).ready(function () {
   function createNewRow(post) {
     var newPostCard = $("<div>");
     newPostCard.addClass("post-container card");
+    newPostCard.attr("data-aos", "zoom-in");
     var newPostCardImage = $("<img>");
     newPostCardImage.addClass("card-img img-fluid");
     newPostCardImage.attr("src", post.image_url);
@@ -169,7 +175,11 @@ $(document).ready(function () {
     newPostCardBody.append(deleteBtn);
     newPostCard.append(newPostCardBody);
     newPostCard.data("post", post);
-    newPostCard.attr("data-aos", "zoom-in");
+
+    //remove aos animation to unblock comment modal
+    $(document).on("click", ".anchor-modal", function(){
+      newPostCard.removeAttr("data-aos");
+    });
     return newPostCard;
   }
 
