@@ -2,14 +2,16 @@ body {
   background-image: url("../img/background.png");
 }
 .navbar-header {
-  /* background-color: #148a9e; */
-  /* background-color: #9e2814; */
   background-color: #ff4e50;
 }
-.navbar .recommend-it-headers {
+.navbar .voucher-headers {
   font-size: 48px;
   color: #eee;
   font-family: "Paytone One", sans-serif;
+}
+body > nav.navbar.navbar-header > ul > li{
+    display:inline-block;
+
 }
 .main-container {
   width: 100%;
@@ -35,8 +37,6 @@ body {
   padding: 5%;
 }
 .card {
-  /* border:solid 10px  #9e6d14; */
-  /* border:solid 10px #ffcb85; */
   border-radius: 1.5%;
 }
 .card-text {
@@ -71,7 +71,7 @@ body {
   
   @media (min-width: 768px) {
       .card-columns {
-          column-count: 1;
+          column-count: 2;
       }
   }
   
