@@ -13,7 +13,7 @@ module.exports = function (app) {
       order: [
         ['createdAt', 'DESC']
       ],
-      include:[db.Recommendation]
+      include:[{model:db.Recommendation, as:'Recommendation'}]
     }).then(function (dbComment) {
       res.json(dbComment);
     });
@@ -23,8 +23,11 @@ module.exports = function (app) {
   app.post("/api/comment", function (req, res) {
     console.log(req.body);
     db.Comment.create({
+      where: {
+        postId: req.params.postId
+      },
       author: req.body.author,
-      body: req.body.category
+      body: req.body.body
     })
       .then(function (dbComment) {
         res.json(dbComment);

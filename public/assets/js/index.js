@@ -1,5 +1,9 @@
 $(document).ready(function () {
   /* global moment */
+  // Initialize AOS
+  AOS.init();
+
+
   // postContainer holds all of our posts
   var postContainer = $(".card-columns");
   var postCategorySelect = $("#category");
@@ -8,11 +12,17 @@ $(document).ready(function () {
   $(document).on("click", ".btn-primary", handlePostEdit);
   postCategorySelect.on("change", handleCategoryChange);
   var posts;
+
   // =================
   //KB: Click events for the comments button
   $(document).on("click", ".btn-success", function () {
     $(".comments").toggleClass("hidden");
   });
+
+  $(document).on("click", ".anchor-modal", function (){
+    postContainer.removeAttr("data-aos");
+  }); 
+
 
   // Change events for the category menu to get all posts based on category
   $("#category").change(function () {
@@ -44,7 +54,6 @@ $(document).ready(function () {
     $.get("/api/posts/" + categoryString, function (data) {
       console.log("Posts", data);
       posts = data;
-      ``;
       if (!posts || !posts.length) {
         displayEmpty();
       } else {
@@ -80,6 +89,7 @@ $(document).ready(function () {
   function createNewRow(post) {
     var newPostCard = $("<div>");
     newPostCard.addClass("post-container card");
+    newPostCard.attr("data-aos", "zoom-in");
     var newPostCardImage = $("<img>");
     newPostCardImage.addClass("card-img img-fluid");
     newPostCardImage.attr("src", post.image_url);
@@ -103,8 +113,8 @@ $(document).ready(function () {
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">${
-            post.title
-          } vouched for by ${post.author}
+      post.title
+      } vouched for by ${post.author}
     </h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -165,6 +175,11 @@ $(document).ready(function () {
     newPostCardBody.append(deleteBtn);
     newPostCard.append(newPostCardBody);
     newPostCard.data("post", post);
+
+    //remove aos animation to unblock comment modal
+    $(document).on("click", ".anchor-modal", function(){
+      newPostCard.removeAttr("data-aos");
+    });
     return newPostCard;
   }
 

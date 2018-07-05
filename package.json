@@ -4,6 +4,7 @@
   "description": "**Recommend-It** ==== This is a group project for the University of Minnesota Coding Bootcamp Cohort 4.",
   "main": "server.js",
   "dependencies": {
+    "aos": "^2.3.2",
     "body-parser": "^1.18.3",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
