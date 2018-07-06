@@ -87,3 +87,12 @@ $(document).ready(function() {
     }
   });
   
+//   module.exports = {
+//     newPost = {
+//         author: authorInput.val(),
+//             category: $(this).find('option:selected').text(),
+//             title: titleInput.val().trim(),
+//             post: bodyInput.val().trim(),
+//             image_url: imgURLInput.val()
+//   }
+// };

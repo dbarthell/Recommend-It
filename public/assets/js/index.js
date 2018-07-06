@@ -19,9 +19,9 @@ $(document).ready(function () {
     $(".comments").toggleClass("hidden");
   });
 
-  $(document).on("click", ".anchor-modal", function (){
+  $(document).on("click", ".anchor-modal", function () {
     postContainer.removeAttr("data-aos");
-  }); 
+  });
 
 
   // Change events for the category menu to get all posts based on category
@@ -177,7 +177,7 @@ $(document).ready(function () {
     newPostCard.data("post", post);
 
     //remove aos animation to unblock comment modal
-    $(document).on("click", ".anchor-modal", function(){
+    $(document).on("click", ".anchor-modal", function () {
       newPostCard.removeAttr("data-aos");
     });
     return newPostCard;
@@ -220,4 +220,5 @@ $(document).ready(function () {
     var newPostCategory = $(this).val();
     getPosts(newPostCategory);
   }
+
 });
