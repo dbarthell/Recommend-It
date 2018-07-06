@@ -1,8 +1,7 @@
-$(document).ready(function () {
+$(document).ready(function() {
   /* global moment */
   // Initialize AOS
   AOS.init();
-
 
   // postContainer holds all of our posts
   var postContainer = $(".card-columns");
@@ -12,20 +11,19 @@ $(document).ready(function () {
   $(document).on("click", ".btn-primary", handlePostEdit);
   postCategorySelect.on("change", handleCategoryChange);
   var posts;
-
+  var comments;
   // =================
   //KB: Click events for the comments button
-  $(document).on("click", ".btn-success", function () {
+  $(document).on("click", ".btn-success", function() {
     $(".comments").toggleClass("hidden");
   });
 
-  $(document).on("click", ".anchor-modal", function (){
+  $(document).on("click", ".anchor-modal", function() {
     postContainer.removeAttr("data-aos");
-  }); 
-
+  });
 
   // Change events for the category menu to get all posts based on category
-  $("#category").change(function () {
+  $("#category").change(function() {
     event.preventDefault();
     var category = $(this)
       .find("option:selected")
@@ -38,7 +36,7 @@ $(document).ready(function () {
   });
 
   // On click of small text categories, get all posts of that category
-  $(document).on("click", ".text-muted", function () {
+  $(document).on("click", ".text-muted", function() {
     var category = $(this).text();
     if (category === "All Categories") {
       getPosts();
@@ -47,11 +45,10 @@ $(document).ready(function () {
     }
   });
 
-
   // This function grabs posts from the database and updates the view
   function getPosts(category) {
     var categoryString = category || "";
-    $.get("/api/posts/" + categoryString, function (data) {
+    $.get("/api/posts/" + categoryString, function(data) {
       console.log("Posts", data);
       posts = data;
       if (!posts || !posts.length) {
@@ -67,11 +64,25 @@ $(document).ready(function () {
     $.ajax({
       method: "DELETE",
       url: "/api/posts/" + id
-    }).then(function () {
+    }).then(function() {
       getPosts();
     });
   }
 
+  // This function grabs comments from the database and updates the modals for each card
+  function getComments(id) {
+    $.get("/api/comment/" + id, function(data) {
+      console.log("Comments", data);
+      comments = data;
+      if (!comments || !comments.length) {
+        //displayEmpty();
+        console.log("no comments yet");
+      } else {
+        //initializeRows();
+        console.log(comments);
+      }
+    });
+  }
   // Getting the initial list of posts
   getPosts();
   // InitializeRows handles appending all of our constructed post HTML inside
@@ -90,6 +101,7 @@ $(document).ready(function () {
     var newPostCard = $("<div>");
     newPostCard.addClass("post-container card");
     newPostCard.attr("data-aos", "zoom-in");
+    newPostCard.attr("id", post.id);
     var newPostCardImage = $("<img>");
     newPostCardImage.addClass("card-img img-fluid");
     newPostCardImage.attr("src", post.image_url);
@@ -103,7 +115,7 @@ $(document).ready(function () {
     newPostCardText.text(post.post);
     //============
     //KB: Adding in Bootstrap 4 modals dynamically. post.comments does not exist yet. Once Joe and Nerita get the comments model up and running we can add it in.
-    //KB: This sntax isn't as secure as the syntax above for adding elements dynamically. I only added it in this way in order to show visually all the components that might be necessary for the bootstrap modal feature. 
+    //KB: This sntax isn't as secure as the syntax above for adding elements dynamically. I only added it in this way in order to show visually all the components that might be necessary for the bootstrap modal feature.
 
     var newModalButton = `<a href="#" class="anchor-modal" data-toggle="modal" data-target="#exampleModal">
     See more...
@@ -113,8 +125,8 @@ $(document).ready(function () {
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">${
-      post.title
-      } vouched for by ${post.author}
+            post.title
+          } vouched for by ${post.author}
     </h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -177,7 +189,7 @@ $(document).ready(function () {
     newPostCard.data("post", post);
 
     //remove aos animation to unblock comment modal
-    $(document).on("click", ".anchor-modal", function(){
+    $(document).on("click", ".anchor-modal", function() {
       newPostCard.removeAttr("data-aos");
     });
     return newPostCard;
@@ -209,9 +221,7 @@ $(document).ready(function () {
     postContainer.empty();
     var messageH2 = $("<h2>");
     messageH2.css({ "text-align": "center", "margin-top": "50px" });
-    messageH2.html(
-      "Create <a href='/newpost'>new</a> category!"
-    );
+    messageH2.html("Create <a href='/newpost'>new</a> category!");
     postContainer.append(messageH2);
   }
 
