@@ -264,10 +264,8 @@ function getComments(id) {
     // Submits a new comment
 
     $.post("/api/comment/" + postID, newComment);
-    newCommentRow = $("<div>");
-    newCommentRow.addClass("each-comment");
-    newCommentRow.html(commentAuthor + ": " + commentBody);
-    commentContainer.append(newCommentRow);
+    // newCommentRow = $('<div class="each-comment">${commentAuthor}</div>');
+    // commentContainer.append(newCommentRow);
     commentAuthor.val("");
     commentBody.val("");
   });
