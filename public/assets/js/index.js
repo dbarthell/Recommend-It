@@ -19,8 +19,9 @@ $(document).ready(function() {
   });
 
   $(document).on("click", ".anchor-modal", function() {
+    postContainer.removeAttr("data-aos");
     var postID = $(this).data("post-id");
-    console.log("Post Id: "+postID);
+    console.log("Post Id: " + postID);
     postContainer.removeAttr("data-aos");
     getComments(postID);
   });
@@ -105,19 +106,23 @@ $(document).ready(function() {
     //============
     //KB: Adding in Bootstrap 4 modals dynamically. post.comments does not exist yet. Once Joe and Nerita get the comments model up and running we can add it in.
     //KB: This syntax isn't as secure as the syntax above for adding elements dynamically. I only added it in this way in order to show visually all the components that might be necessary for the bootstrap modal feature.
-// 
-    var newModalButton = `<a href="#" class="anchor-modal" data-toggle="modal" data-target="#post-modal-${post.id}" data-post-id="${
+    //
+    var newModalButton = `<a href="#" class="anchor-modal" data-toggle="modal" data-target="#post-modal-${
       post.id
-    }">
+    }" data-post-id="${post.id}">
     See more...
   </a>`;
-    var newModal = `<div class="modal fade" id="post-modal-${post.id}" tabindex="-1" role="dialog" aria-labelledby="post-modal-label-${post.id}" aria-hidden="true">
+    var newModal = `<div class="modal fade" id="post-modal-${
+      post.id
+    }" tabindex="-1" role="dialog" aria-labelledby="post-modal-label-${
+      post.id
+    }" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="post-modal-label-${post.id}">${
-            post.title
-          } vouched for by ${post.author}</h5>
+      post.title
+    } vouched for by ${post.author}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -229,49 +234,49 @@ function getComments(id) {
       console.log("no comments yet");
     } else {
       console.log(comments);
-      
-      addCommentRow(id,comments);
-
+      addCommentRow(id, comments);
     }
   });
 
-  function addCommentRow(id, comments){
-    var commentContainer=$("#post-modal-"+id).find(".all-comments");
-    commentContainer.empty();
-    var newCommentRow;
-    for(i=0;i<comments.length;i++){
-    newCommentRow=$("<div>");
-    newCommentRow.html(comments[i].author+"<br>"+comments[i].body);
-    commentContainer.append(newCommentRow);
+  var addComment = $(".add-comment");
+
+  // Adding an event listener for when the form is submitted
+  $(addComment).on("submit", function(event) {
+    event.preventDefault();
+    var commentAuthor = $(this).find(".comment-author");
+    var commentBody = $(this).find(".comment-body");
+    var postID = $(this).data("post-id");
+    // Won't submit the comment if we are missing a body or an author
+    if (!commentAuthor.val().trim() || !commentBody.val().trim()) {
+      return;
     }
-  }
+    // Constructing a newComment object to hand to the database
+    var newComment = {
+      author: commentAuthor.val(),
+      body: commentBody.val(),
+      postId: postID
+    };
+    commentAuthor.empty();
+    commentBody.empty();
+    console.log(newComment);
+    // Submits a new comment
 
-
-var addComment=$(".add-comment");
-
-
-// Adding an event listener for when the form is submitted
-$(addComment).on("submit", function (event) {
-  event.preventDefault();
-var commentAuthor = $(this).find(".comment-author");
-var commentBody = $(this).find(".comment-body");
-var postID = $(this).data("post-id");
-  // Won't submit the comment if we are missing a body or an author
-  if (!commentAuthor.val().trim() || !commentBody.val().trim()) {
-    return;
-  }
-  // Constructing a newComment object to hand to the database
-  var newComment = {
-    author: commentAuthor.val(),
-    body: commentBody.val(),
-    postId:postID
-  };
-
-  console.log(newComment);
-// Submits a new comment
-
-  $.post("/api/comment/"+postID, newComment);
-
-
-});
+    $.post("/api/comment/" + postID, newComment);
+   
+    commentAuthor.val("");
+    commentBody.val("");
+    getComments(postID);
+  });
 }
+function addCommentRow(id,comments){
+  var commentContainer = $("#post-modal-" + id).find(".all-comments");
+  commentContainer.empty();
+  var newCommentRow;
+  for (i = 0; i < comments.length; i++) {
+    newCommentRow = $("<div>");
+    newCommentRow.addClass("each-comment");
+    newCommentRow.html(comments[i].author + ": " + comments[i].body);
+    commentContainer.append(newCommentRow);
+  }
+}
+

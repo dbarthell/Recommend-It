@@ -29,9 +29,22 @@ body > nav.navbar.navbar-header > ul > li{
   margin: 2%;
   max-height: 100em;
 }
-.form-container {
+.add-recommendations {
   border: solid 10px #ffcb85;
   background-color: #eee;
+  margin: 2%;
+  padding: 5%;
+}
+.add-comment{
+  border: solid 1px #333;
+  background-color: #fff;
+  margin: 2%;
+  padding: 5%;
+  font-weight:bold;
+}
+.each-comment{
+  border: solid 3px  #ffcb85;
+  background-color: #fff;
   margin: 2%;
   padding: 5%;
 }
@@ -51,6 +64,10 @@ body > nav.navbar.navbar-header > ul > li{
   color: #444;
   background-color: #fff;
   margin: 2px;
+}
+.submit-comment{
+  background-color: #cca26a;
+  color:#fff;
 }
 .anchor-modal {
   display: block;
