@@ -243,9 +243,11 @@ function getComments(id) {
   // Adding an event listener for when the form is submitted
   $(addComment).on("submit", function(event) {
     event.preventDefault();
+    var commentContainer = $("#post-modal-" + id).find(".all-comments");
     var commentAuthor = $(this).find(".comment-author");
     var commentBody = $(this).find(".comment-body");
     var postID = $(this).data("post-id");
+    var newCommentRow;
     // Won't submit the comment if we are missing a body or an author
     if (!commentAuthor.val().trim() || !commentBody.val().trim()) {
       return;
@@ -262,13 +264,16 @@ function getComments(id) {
     // Submits a new comment
 
     $.post("/api/comment/" + postID, newComment);
-   
+    newCommentRow = $("<div>");
+    newCommentRow.addClass("each-comment");
+    newCommentRow.html(commentAuthor + ": " + commentBody);
+    commentContainer.append(newCommentRow);
     commentAuthor.val("");
     commentBody.val("");
-    getComments(postID);
   });
 }
-function addCommentRow(id,comments){
+
+function addCommentRow(id, comments) {
   var commentContainer = $("#post-modal-" + id).find(".all-comments");
   commentContainer.empty();
   var newCommentRow;
@@ -279,4 +284,3 @@ function addCommentRow(id,comments){
     commentContainer.append(newCommentRow);
   }
 }
-
