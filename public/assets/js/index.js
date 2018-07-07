@@ -19,11 +19,10 @@ $(document).ready(function() {
   });
 
   $(document).on("click", ".anchor-modal", function() {
-    var postID=$(this).data("post-id");
+    var postID = $(this).data("post-id");
     postContainer.removeAttr("data-aos");
     getComments(postID);
   });
-  
 
   // Change events for the category menu to get all posts based on category
   $("#category").change(function() {
@@ -58,7 +57,6 @@ $(document).ready(function() {
         displayEmpty();
       } else {
         initializeRows();
-
       }
     });
   }
@@ -73,20 +71,6 @@ $(document).ready(function() {
     });
   }
 
-  // This function grabs comments from the database and updates the modals for each card
-  function getComments(id) {
-    $.get("/api/comment/" + id, function(data) {
-      console.log("Comments", data);
-      comments = data;
-      if (!comments || !comments.length) {
-        //displayEmpty();
-        console.log("no comments yet");
-      } else {
-        //initializeRows();
-        console.log(comments);
-      }
-    });
-  }
   // Getting the initial list of posts
   getPosts();
 
@@ -119,17 +103,20 @@ $(document).ready(function() {
     newPostCardText.text(post.post);
     //============
     //KB: Adding in Bootstrap 4 modals dynamically. post.comments does not exist yet. Once Joe and Nerita get the comments model up and running we can add it in.
-    //KB: This sntax isn't as secure as the syntax above for adding elements dynamically. I only added it in this way in order to show visually all the components that might be necessary for the bootstrap modal feature.
+    //KB: This syntax isn't as secure as the syntax above for adding elements dynamically. I only added it in this way in order to show visually all the components that might be necessary for the bootstrap modal feature.
 
-    var newModalButton = `<a href="#" class="anchor-modal" data-toggle="modal" data-target="#exampleModal" data-post-id="${post.id}">
+    var newModalButton = `<a href="#" class="anchor-modal" data-toggle="modal" data-target="#exampleModal" data-post-id="${
+      post.id
+    }">
     See more...
   </a>`;
-    var newModal = 
-    `<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    var newModal = `<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">${post.title} vouched for by ${post.author}</h5>
+          <h5 class="modal-title" id="exampleModalLabel">${
+            post.title
+          } vouched for by ${post.author}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -142,16 +129,19 @@ $(document).ready(function() {
         <br>      
         <button type="button" class="btn btn-success comment-btn">Add Comment</button>
          <div class="comments hidden">
-
+         <form class="form-container"id="add-post">
+         <div class="form-group">
       <label for="author"><br>User:</label>
-      <input type="text" class="form-control author" id="author">
+      <input type="text" class="form-control author" id="comment-author">
       <label for="body">Comment:</label>
-       <textarea class="form-control body" id="body" rows="2"></textarea>
+       <textarea class="form-control body" id="comment-body" rows="2"></textarea>
        <button type="submit" class="btn submit">Submit Comment</button>
+      </div>
+      </form>
       </div>
       <br><br>
          <div class="all-comments"> 
-         This is where post.comments can generate at some point. Maybe as table rows?
+         ${post.comment}    
         </div>
          </div>
       </div>
@@ -225,4 +215,58 @@ $(document).ready(function() {
     var newPostCategory = $(this).val();
     getPosts(newPostCategory);
   }
+});
+
+//Post comment functions
+//============================
+// This function grabs comments from the database and updates the modals for each card
+function getComments(id) {
+  $.get("/api/comment/" + id, function(data) {
+    console.log("Comments", data);
+    comments = data;
+    if (!comments || !comments.length) {
+      //displayEmpty();
+      console.log("no comments yet");
+    } else {
+      //initializeRows();
+      console.log(comments);
+    }
+  });
+}
+
+var commentAuthor = $("#comment-author");
+var commentBody = $("#comment-body");
+var postComment=$("#add-form");
+
+// Adding an event listener for when the form is submitted
+$(postComment).on("submit", function handleCommentSubmit(event) {
+  event.preventDefault();
+  // Wont submit the post if we are missing a body or a title
+  if (!commentAuthor.val().trim() || !commentBody.val().trim()) {
+    return;
+  }
+  // Constructing a newPost object to hand to the database
+  var newComment = {
+    author: commentAuthor.val(),
+    body: commentBody.val().trim()
+  };
+
+  console.log(newComment);
+// Submits a new post and brings user to post page upon completion
+function submitComment(newComment) {
+  $.post("/api/comment/", newComment, function() {
+  });
+}
+
+// Gets post data for a post if we're editing
+function getPostComments(id) {
+  $.get("/api/comment/" + id, function(data) {
+    if (data) {
+      console.log(data);
+      // If this post exists, prefill our cms forms with its data
+      commentAuthor.val(data.author);
+      commentBody.val(data.newPostCardBody);
+    }
+  });
+}
 });
