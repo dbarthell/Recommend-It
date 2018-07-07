@@ -11,7 +11,6 @@ body {
 }
 body > nav.navbar.navbar-header > ul > li{
     display:inline-block;
-
 }
 .main-container {
   width: 100%;

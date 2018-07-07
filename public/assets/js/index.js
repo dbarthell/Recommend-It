@@ -14,13 +14,16 @@ $(document).ready(function() {
   var comments;
   // =================
   //KB: Click events for the comments button
-  $(document).on("click", ".btn-success", function() {
+  $(document).on("click", ".comment-btn", function() {
     $(".comments").toggleClass("hidden");
   });
 
   $(document).on("click", ".anchor-modal", function() {
+    var postID=$(this).data("post-id");
     postContainer.removeAttr("data-aos");
+    getComments(postID);
   });
+  
 
   // Change events for the category menu to get all posts based on category
   $("#category").change(function() {
@@ -55,6 +58,7 @@ $(document).ready(function() {
         displayEmpty();
       } else {
         initializeRows();
+
       }
     });
   }
@@ -85,6 +89,7 @@ $(document).ready(function() {
   }
   // Getting the initial list of posts
   getPosts();
+
   // InitializeRows handles appending all of our constructed post HTML inside
   // postContainer
   function initializeRows() {
@@ -101,7 +106,6 @@ $(document).ready(function() {
     var newPostCard = $("<div>");
     newPostCard.addClass("post-container card");
     newPostCard.attr("data-aos", "zoom-in");
-    newPostCard.attr("id", post.id);
     var newPostCardImage = $("<img>");
     newPostCardImage.addClass("card-img img-fluid");
     newPostCardImage.attr("src", post.image_url);
@@ -117,17 +121,15 @@ $(document).ready(function() {
     //KB: Adding in Bootstrap 4 modals dynamically. post.comments does not exist yet. Once Joe and Nerita get the comments model up and running we can add it in.
     //KB: This sntax isn't as secure as the syntax above for adding elements dynamically. I only added it in this way in order to show visually all the components that might be necessary for the bootstrap modal feature.
 
-    var newModalButton = `<a href="#" class="anchor-modal" data-toggle="modal" data-target="#exampleModal">
+    var newModalButton = `<a href="#" class="anchor-modal" data-toggle="modal" data-target="#exampleModal" data-post-id="${post.id}">
     See more...
   </a>`;
-    var newModal = `<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    var newModal = 
+    `<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">${
-            post.title
-          } vouched for by ${post.author}
-    </h5>
+          <h5 class="modal-title" id="exampleModalLabel">${post.title} vouched for by ${post.author}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -135,12 +137,10 @@ $(document).ready(function() {
         <div class="modal-body">
         <img class="card-img img-fluid" src=${post.image_url}>
         <br><br>
-        <div class="post">
-     ${post.post}
-        </div>
+        <div class="post">${post.post}</div>
         <br>
         <br>      
-   <button type="button" class="btn btn-success">Add Comment</button>
+        <button type="button" class="btn btn-success comment-btn">Add Comment</button>
          <div class="comments hidden">
 
       <label for="author"><br>User:</label>
@@ -152,11 +152,6 @@ $(document).ready(function() {
       <br><br>
          <div class="all-comments"> 
          This is where post.comments can generate at some point. Maybe as table rows?
-         <br><br> Lorizzle ipsizzle dolizzle gangster yo, the bizzle adipiscing stuff. Gizzle sapien velit, for sure volutpizzle, suscipizzle shizznit, gravida vizzle, arcu. Pellentesque boofron shizzle my nizzle crocodizzle. Sizzle erizzle. Yippiyo izzle dolor dapibizzle stuff tempizzle gangster. Mauris pellentesque nibh izzle turpis. Gangsta izzle fo shizzle my nizzle. Pellentesque eleifend rhoncizzle . In hizzle habitasse platea dictumst. Donec dapibizzle. Curabitizzle fo shizzle urna, pretizzle eu, izzle ac, eleifend nizzle, nunc. Break yo neck, yall da bomb. Integer sempizzle i saw beyonces tizzles and my pizzle went crizzle sed we gonna chung.
-
-         Praesent my shizz turpizzle mah nizzle uhuh ... yih! break yo neck, yall molestie. Crackalackin fizzle black vizzle bling bling. Nizzle fizzle ornare pimpin'. Morbi crunk, nisl nizzle bibendizzle bizzle, magna dolor vestibulizzle its fo rizzle, sheezy auctizzle justo mammasay mammasa mamma oo sa cool augue. Sheezy id elizzle da bomb amizzle erizzle adipiscing mofo. Vivamizzle tempor pede ut yo mamma. In rhoncus leo. Things ipsum dolizzle sizzle bling bling, get down get down adipiscing that's the shizzle. Gangster nisi ligula, daahng dawg dizzle check it out, facilisis sizzle, tellivizzle mattizzle, dope. Curabitizzle semper faucibus dope. Ut nizzle fo shizzle. Nunc you son of a bizzle mofo phat diam accumsizzle egestizzle. Quisque gangsta metizzle pimpin' nunc. Fizzle own yo', izzle quizzle varizzle lacinia, that's the shizzle dizzle commodo felis, nizzle ullamcorper eros nisl shit nisi. Ma nizzle leo quam, own yo' sizzle amet, ornare vitae, pulvinar pulvinizzle, mah nizzle.
-         
-         Sure away mofo in fizzle hizzle consequat. In convallis, arcu izzle check out this posuere, nulla lorizzle crackalackin crazy, a blandit owned go to hizzle sizzle i'm in the shizzle. Gangster izzle diam yippiyo black varizzle sizzle. Curabitizzle dang nisi, pot izzle, porta eleifend, tincidunt izzle, metus. Nunc uhuh ... yih! neque. Shizznit ipsizzle dolizzle sizzle amet, consectetizzle adipiscing elit. Maecenas its fo rizzle crazy. In congue. Vestibulum izzle erizzle check out this velit aliquet dictum. Pizzle facilisizzle we gonna chung fizzle amizzle nibh. Crizzle commodo. Crazy eu ante izzle pimpin' lacinia sagittis. Aenean non massa shut the shizzle up urna break it down lobortis. Suspendisse enizzle est, break it down pulvinar, ornare brizzle, doggy bizzle, bling bling. Crazy egizzle dizzle at tellivizzle adipiscing tempor. Curabitizzle et sheezy quizzle tellizzle get down get down nonummy.
         </div>
          </div>
       </div>
