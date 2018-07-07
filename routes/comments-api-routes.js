@@ -25,10 +25,9 @@ module.exports = function (app) {
   // Route for creating new comment
   app.post("/api/comment/:postId", function (req, res) {
     console.log(req.body);
+    
     db.Comment.create({
-      where: {
-        postId: req.params.postId
-      },
+      postId:req.params.postId,
       author: req.body.author,
       body: req.body.body
     })

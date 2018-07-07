@@ -20,6 +20,7 @@ $(document).ready(function() {
 
   $(document).on("click", ".anchor-modal", function() {
     var postID = $(this).data("post-id");
+    console.log("Post Id: "+postID);
     postContainer.removeAttr("data-aos");
     getComments(postID);
   });
@@ -104,17 +105,17 @@ $(document).ready(function() {
     //============
     //KB: Adding in Bootstrap 4 modals dynamically. post.comments does not exist yet. Once Joe and Nerita get the comments model up and running we can add it in.
     //KB: This syntax isn't as secure as the syntax above for adding elements dynamically. I only added it in this way in order to show visually all the components that might be necessary for the bootstrap modal feature.
-
-    var newModalButton = `<a href="#" class="anchor-modal" data-toggle="modal" data-target="#exampleModal" data-post-id="${
+// 
+    var newModalButton = `<a href="#" class="anchor-modal" data-toggle="modal" data-target="#post-modal-${post.id}" data-post-id="${
       post.id
     }">
     See more...
   </a>`;
-    var newModal = `<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    var newModal = `<div class="modal fade" id="post-modal-${post.id}" tabindex="-1" role="dialog" aria-labelledby="post-modal-label-${post.id}" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">${
+          <h5 class="modal-title" id="post-modal-label-${post.id}">${
             post.title
           } vouched for by ${post.author}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -129,19 +130,19 @@ $(document).ready(function() {
         <br>      
         <button type="button" class="btn btn-success comment-btn">Add Comment</button>
          <div class="comments hidden">
-         <form class="form-container"id="add-post">
+         <form class="form-container add-comment" data-post-id="${post.id}">
          <div class="form-group">
       <label for="author"><br>User:</label>
-      <input type="text" class="form-control author" id="comment-author">
+      <input type="text" class="form-control author comment-author">
       <label for="body">Comment:</label>
-       <textarea class="form-control body" id="comment-body" rows="2"></textarea>
-       <button type="submit" class="btn submit">Submit Comment</button>
+       <textarea class="form-control body comment-body" rows="2"></textarea>
+       <button type="submit" class="btn submit-comment">Submit Comment</button>
       </div>
       </form>
       </div>
       <br><br>
          <div class="all-comments"> 
-         ${post.comment}    
+          
         </div>
          </div>
       </div>
@@ -225,48 +226,52 @@ function getComments(id) {
     console.log("Comments", data);
     comments = data;
     if (!comments || !comments.length) {
-      //displayEmpty();
       console.log("no comments yet");
     } else {
-      //initializeRows();
       console.log(comments);
+      
+      addCommentRow(id,comments);
+
     }
   });
-}
 
-var commentAuthor = $("#comment-author");
-var commentBody = $("#comment-body");
-var postComment=$("#add-form");
+  function addCommentRow(id, comments){
+    var commentContainer=$("#post-modal-"+id).find(".all-comments");
+    commentContainer.empty();
+    var newCommentRow;
+    for(i=0;i<comments.length;i++){
+    newCommentRow=$("<div>");
+    newCommentRow.html(comments[i].author+"<br>"+comments[i].body);
+    commentContainer.append(newCommentRow);
+    }
+  }
+
+
+var addComment=$(".add-comment");
+
 
 // Adding an event listener for when the form is submitted
-$(postComment).on("submit", function handleCommentSubmit(event) {
+$(addComment).on("submit", function (event) {
   event.preventDefault();
-  // Wont submit the post if we are missing a body or a title
+var commentAuthor = $(this).find(".comment-author");
+var commentBody = $(this).find(".comment-body");
+var postID = $(this).data("post-id");
+  // Won't submit the comment if we are missing a body or an author
   if (!commentAuthor.val().trim() || !commentBody.val().trim()) {
     return;
   }
-  // Constructing a newPost object to hand to the database
+  // Constructing a newComment object to hand to the database
   var newComment = {
     author: commentAuthor.val(),
-    body: commentBody.val().trim()
+    body: commentBody.val(),
+    postId:postID
   };
 
   console.log(newComment);
-// Submits a new post and brings user to post page upon completion
-function submitComment(newComment) {
-  $.post("/api/comment/", newComment, function() {
-  });
-}
+// Submits a new comment
 
-// Gets post data for a post if we're editing
-function getPostComments(id) {
-  $.get("/api/comment/" + id, function(data) {
-    if (data) {
-      console.log(data);
-      // If this post exists, prefill our cms forms with its data
-      commentAuthor.val(data.author);
-      commentBody.val(data.newPostCardBody);
-    }
-  });
-}
+  $.post("/api/comment/"+postID, newComment);
+
+
 });
+}

@@ -14,6 +14,10 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.DATE(3),
             // defaultValue: sequelize.literal('CURRENT_TIMESTAMP(3)'),
             defaultValue: DataTypes.NOW(),
+        },
+        postId:{
+            type:DataTypes.INTEGER,
+            allowNull:false
         }
     });
 
