@@ -1,8 +1,7 @@
-$(document).ready(function () {
+$(document).ready(function() {
   /* global moment */
   // Initialize AOS
   AOS.init();
-
 
   // postContainer holds all of our posts
   var postContainer = $(".card-columns");
@@ -12,20 +11,21 @@ $(document).ready(function () {
   $(document).on("click", ".btn-primary", handlePostEdit);
   postCategorySelect.on("change", handleCategoryChange);
   var posts;
-
+  var comments;
   // =================
   //KB: Click events for the comments button
-  $(document).on("click", ".btn-success", function () {
+  $(document).on("click", ".comment-btn", function() {
     $(".comments").toggleClass("hidden");
   });
 
-  $(document).on("click", ".anchor-modal", function (){
+  $(document).on("click", ".anchor-modal", function() {
+    var postID = $(this).data("post-id");
     postContainer.removeAttr("data-aos");
-  }); 
-
+    getComments(postID);
+  });
 
   // Change events for the category menu to get all posts based on category
-  $("#category").change(function () {
+  $("#category").change(function() {
     event.preventDefault();
     var category = $(this)
       .find("option:selected")
@@ -38,7 +38,7 @@ $(document).ready(function () {
   });
 
   // On click of small text categories, get all posts of that category
-  $(document).on("click", ".text-muted", function () {
+  $(document).on("click", ".text-muted", function() {
     var category = $(this).text();
     if (category === "All Categories") {
       getPosts();
@@ -47,11 +47,10 @@ $(document).ready(function () {
     }
   });
 
-
   // This function grabs posts from the database and updates the view
   function getPosts(category) {
     var categoryString = category || "";
-    $.get("/api/posts/" + categoryString, function (data) {
+    $.get("/api/posts/" + categoryString, function(data) {
       console.log("Posts", data);
       posts = data;
       if (!posts || !posts.length) {
@@ -67,13 +66,14 @@ $(document).ready(function () {
     $.ajax({
       method: "DELETE",
       url: "/api/posts/" + id
-    }).then(function () {
+    }).then(function() {
       getPosts();
     });
   }
 
   // Getting the initial list of posts
   getPosts();
+
   // InitializeRows handles appending all of our constructed post HTML inside
   // postContainer
   function initializeRows() {
@@ -103,9 +103,11 @@ $(document).ready(function () {
     newPostCardText.text(post.post);
     //============
     //KB: Adding in Bootstrap 4 modals dynamically. post.comments does not exist yet. Once Joe and Nerita get the comments model up and running we can add it in.
-    //KB: This sntax isn't as secure as the syntax above for adding elements dynamically. I only added it in this way in order to show visually all the components that might be necessary for the bootstrap modal feature. 
+    //KB: This syntax isn't as secure as the syntax above for adding elements dynamically. I only added it in this way in order to show visually all the components that might be necessary for the bootstrap modal feature.
 
-    var newModalButton = `<a href="#" class="anchor-modal" data-toggle="modal" data-target="#exampleModal">
+    var newModalButton = `<a href="#" class="anchor-modal" data-toggle="modal" data-target="#exampleModal" data-post-id="${
+      post.id
+    }">
     See more...
   </a>`;
     var newModal = `<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -113,9 +115,8 @@ $(document).ready(function () {
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">${
-      post.title
-      } vouched for by ${post.author}
-    </h5>
+            post.title
+          } vouched for by ${post.author}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -123,28 +124,24 @@ $(document).ready(function () {
         <div class="modal-body">
         <img class="card-img img-fluid" src=${post.image_url}>
         <br><br>
-        <div class="post">
-     ${post.post}
-        </div>
+        <div class="post">${post.post}</div>
         <br>
         <br>      
-   <button type="button" class="btn btn-success">Add Comment</button>
+        <button type="button" class="btn btn-success comment-btn">Add Comment</button>
          <div class="comments hidden">
-
+         <form class="form-container"id="add-post">
+         <div class="form-group">
       <label for="author"><br>User:</label>
-      <input type="text" class="form-control author" id="author">
+      <input type="text" class="form-control author" id="comment-author">
       <label for="body">Comment:</label>
-       <textarea class="form-control body" id="body" rows="2"></textarea>
+       <textarea class="form-control body" id="comment-body" rows="2"></textarea>
        <button type="submit" class="btn submit">Submit Comment</button>
+      </div>
+      </form>
       </div>
       <br><br>
          <div class="all-comments"> 
-         This is where post.comments can generate at some point. Maybe as table rows?
-         <br><br> Lorizzle ipsizzle dolizzle gangster yo, the bizzle adipiscing stuff. Gizzle sapien velit, for sure volutpizzle, suscipizzle shizznit, gravida vizzle, arcu. Pellentesque boofron shizzle my nizzle crocodizzle. Sizzle erizzle. Yippiyo izzle dolor dapibizzle stuff tempizzle gangster. Mauris pellentesque nibh izzle turpis. Gangsta izzle fo shizzle my nizzle. Pellentesque eleifend rhoncizzle . In hizzle habitasse platea dictumst. Donec dapibizzle. Curabitizzle fo shizzle urna, pretizzle eu, izzle ac, eleifend nizzle, nunc. Break yo neck, yall da bomb. Integer sempizzle i saw beyonces tizzles and my pizzle went crizzle sed we gonna chung.
-
-         Praesent my shizz turpizzle mah nizzle uhuh ... yih! break yo neck, yall molestie. Crackalackin fizzle black vizzle bling bling. Nizzle fizzle ornare pimpin'. Morbi crunk, nisl nizzle bibendizzle bizzle, magna dolor vestibulizzle its fo rizzle, sheezy auctizzle justo mammasay mammasa mamma oo sa cool augue. Sheezy id elizzle da bomb amizzle erizzle adipiscing mofo. Vivamizzle tempor pede ut yo mamma. In rhoncus leo. Things ipsum dolizzle sizzle bling bling, get down get down adipiscing that's the shizzle. Gangster nisi ligula, daahng dawg dizzle check it out, facilisis sizzle, tellivizzle mattizzle, dope. Curabitizzle semper faucibus dope. Ut nizzle fo shizzle. Nunc you son of a bizzle mofo phat diam accumsizzle egestizzle. Quisque gangsta metizzle pimpin' nunc. Fizzle own yo', izzle quizzle varizzle lacinia, that's the shizzle dizzle commodo felis, nizzle ullamcorper eros nisl shit nisi. Ma nizzle leo quam, own yo' sizzle amet, ornare vitae, pulvinar pulvinizzle, mah nizzle.
-         
-         Sure away mofo in fizzle hizzle consequat. In convallis, arcu izzle check out this posuere, nulla lorizzle crackalackin crazy, a blandit owned go to hizzle sizzle i'm in the shizzle. Gangster izzle diam yippiyo black varizzle sizzle. Curabitizzle dang nisi, pot izzle, porta eleifend, tincidunt izzle, metus. Nunc uhuh ... yih! neque. Shizznit ipsizzle dolizzle sizzle amet, consectetizzle adipiscing elit. Maecenas its fo rizzle crazy. In congue. Vestibulum izzle erizzle check out this velit aliquet dictum. Pizzle facilisizzle we gonna chung fizzle amizzle nibh. Crizzle commodo. Crazy eu ante izzle pimpin' lacinia sagittis. Aenean non massa shut the shizzle up urna break it down lobortis. Suspendisse enizzle est, break it down pulvinar, ornare brizzle, doggy bizzle, bling bling. Crazy egizzle dizzle at tellivizzle adipiscing tempor. Curabitizzle et sheezy quizzle tellizzle get down get down nonummy.
+         ${post.comment}    
         </div>
          </div>
       </div>
@@ -177,7 +174,7 @@ $(document).ready(function () {
     newPostCard.data("post", post);
 
     //remove aos animation to unblock comment modal
-    $(document).on("click", ".anchor-modal", function(){
+    $(document).on("click", ".anchor-modal", function() {
       newPostCard.removeAttr("data-aos");
     });
     return newPostCard;
@@ -209,9 +206,7 @@ $(document).ready(function () {
     postContainer.empty();
     var messageH2 = $("<h2>");
     messageH2.css({ "text-align": "center", "margin-top": "50px" });
-    messageH2.html(
-      "Create <a href='/newpost'>new</a> category!"
-    );
+    messageH2.html("Create <a href='/newpost'>new</a> category!");
     postContainer.append(messageH2);
   }
 
@@ -220,4 +215,58 @@ $(document).ready(function () {
     var newPostCategory = $(this).val();
     getPosts(newPostCategory);
   }
+});
+
+//Post comment functions
+//============================
+// This function grabs comments from the database and updates the modals for each card
+function getComments(id) {
+  $.get("/api/comment/" + id, function(data) {
+    console.log("Comments", data);
+    comments = data;
+    if (!comments || !comments.length) {
+      //displayEmpty();
+      console.log("no comments yet");
+    } else {
+      //initializeRows();
+      console.log(comments);
+    }
+  });
+}
+
+var commentAuthor = $("#comment-author");
+var commentBody = $("#comment-body");
+var postComment=$("#add-form");
+
+// Adding an event listener for when the form is submitted
+$(postComment).on("submit", function handleCommentSubmit(event) {
+  event.preventDefault();
+  // Wont submit the post if we are missing a body or a title
+  if (!commentAuthor.val().trim() || !commentBody.val().trim()) {
+    return;
+  }
+  // Constructing a newPost object to hand to the database
+  var newComment = {
+    author: commentAuthor.val(),
+    body: commentBody.val().trim()
+  };
+
+  console.log(newComment);
+// Submits a new post and brings user to post page upon completion
+function submitComment(newComment) {
+  $.post("/api/comment/", newComment, function() {
+  });
+}
+
+// Gets post data for a post if we're editing
+function getPostComments(id) {
+  $.get("/api/comment/" + id, function(data) {
+    if (data) {
+      console.log(data);
+      // If this post exists, prefill our cms forms with its data
+      commentAuthor.val(data.author);
+      commentBody.val(data.newPostCardBody);
+    }
+  });
+}
 });

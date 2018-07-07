@@ -8,8 +8,11 @@ var db = require("../models");
 module.exports = function (app) {
 
   // Find all comments and return them to the user with res.json 
-  app.get("/api/comment", function (req, res) {
+  app.get("/api/comment/:postId", function (req, res) {
     db.Comment.findAll({
+      where:{
+        postId:req.params.postId
+      },
       order: [
         ['createdAt', 'DESC']
       ],
@@ -20,7 +23,7 @@ module.exports = function (app) {
   });
 
   // Route for creating new comment
-  app.post("/api/comment", function (req, res) {
+  app.post("/api/comment/:postId", function (req, res) {
     console.log(req.body);
     db.Comment.create({
       where: {

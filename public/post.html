@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>CMS - Recommendit</title>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title>Voucher Submission</title>
     <!-- Latest compiled and minified CSS & JS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0/flatly/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery.js"></script>
@@ -16,7 +16,7 @@
 <body>
     <nav class="navbar navbar-header">
         <!-- This next line will be replaced by a logo that links to index.html once the logo is ready -->
-        <a class="navbar-brand recommend-it-headers" href="index.html">VOUCHER</a>
+        <a class="navbar-brand voucher-headers" href="index.html">VOUCHER</a>
         <form class="form-inline">
             <div class="form-group">
                 <select class="custom-select" id="category">
@@ -24,12 +24,11 @@
                     <option value="Books">Books</option>
                     <option value="Movies">Movies</option>
                     <option value="Shows">Shows</option>
-                    <option value="Songs">Songs</option>
                     <option value="Restaurants">Restaurants</option>
                     <option value="Other">Other</option>
                 </select>
             </div>
-            <button class="btn my-2 my-sm-0" type="submit">
+            <button class="btn" type="submit">
                 <a href="post.html">Vouch For It!</a>
             </button>
         </form>
@@ -37,7 +36,7 @@
     <div class="container">
         <div class="row post-row">
             <div class="col-xs-12 col-md-12 col-lg-12">
-                <form class="form-container"id="cms">
+                <form class="form-container"id="add-post">
                     <div class="form-group">
                         <label for="title">Title:</label>
                         <input type="text" class="form-control" id="title">

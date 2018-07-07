@@ -16,12 +16,12 @@ $(document).ready(function() {
     var authorInput = $("#author");
     var bodyInput = $("#body");
     var titleInput = $("#title");
-    var cmsForm = $("#cms");
+    var postForm = $("#add-post");
     var postCategorySelect = $("#category");
     var imgURLInput = $("#img-url");    
     
     // Adding an event listener for when the form is submitted
-    $(cmsForm).on("submit", function handleFormSubmit(event) {
+    $(postForm).on("submit", function handleFormSubmit(event) {
       event.preventDefault();
       // Wont submit the post if we are missing a body or a title
       if (!titleInput.val().trim() || !bodyInput.val().trim()) {

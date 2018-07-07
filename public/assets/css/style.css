@@ -1,69 +1,93 @@
-body{
-    background-image: url("../img/background.png");
+body {
+  background-image: url("../img/background.png");
 }
-.navbar-header{
-    /* background-color: #148a9e; */
-  /* background-color: #9e2814; */
-    background-color: #ff4e50;
+.navbar-header {
+  background-color: #ff4e50;
+}
+.navbar .voucher-headers {
+  font-size: 48px;
+  color: #eee;
+  font-family: "Paytone One", sans-serif;
+}
+body > nav.navbar.navbar-header > ul > li{
+    display:inline-block;
+}
+.main-container {
+  width: 100%;
+  margin-bottom: 25px;
+}
+.text-muted:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.row {
+  margin: 10px;
+}
+.post-container {
+  border: solid 10px #ffcb85;
+  background-color: #eee;
+  margin: 2%;
+  max-height: 100em;
+}
+.form-container {
+  border: solid 10px #ffcb85;
+  background-color: #eee;
+  margin: 2%;
+  padding: 5%;
+}
+.card {
+  border-radius: 1.5%;
+}
+.card-text {
+  overflow: hidden;
+}
 
+.img-fluid {
+  max-width: 100%;
+  height: auto;
 }
-.navbar .recommend-it-headers{
-    font-size: 48px;
-    color:#eee;
-    font-family: 'Paytone One', sans-serif;
+
+.btn {
+  color: #444;
+  background-color: #fff;
+  margin: 2px;
 }
-.main-container{
-    width:100%;
-    margin-bottom:25px;
+.anchor-modal {
+  display: block;
+  color: #cca26a;
 }
-.text-muted:hover{
-    cursor: pointer;
-    text-decoration: underline;
+.hidden {
+  display: none;
 }
-.row{
-    margin:10px;
-}   
-.post-container{
-    border: solid 10px #ffcb85;
-    background-color: #eee;
-    margin:2%;
-    max-height: 100em;
-}
-.form-container{
-    border: solid 10px #ffcb85;
-    background-color: #eee;
-    margin:2%;
-    padding:5%;
-}
-.card{
-    /* border:solid 10px  #9e6d14; */
-    /* border:solid 10px #ffcb85; */
-    border-radius:1.5%;
-}
-.card-text{
-    overflow: hidden;
-}
-.card-columns{
+.card-columns {
     display: inline-block;
-}
-.img-fluid{
-    max-width:100%; 
-    height:auto;
-}
+  }
+    @media (min-width: 576px) {
+      .card-columns {
+          column-count:1;
+      }
+  }
+  
+  @media (min-width: 768px) {
+      .card-columns {
+          column-count: 2;
+      }
+  }
+  
+  @media (min-width: 992px) {
+      .card-columns {
+          column-count: 3;
+      }
+  }
+  
+  @media (min-width: 1200px) {
+      .card-columns {
+          column-count: 4;
+      }
+  }
+  
 
-.btn{
-    color:#444;
-    background-color: #fff;
-    margin: 2px;
-}
-.anchor-modal{
-    display:block;
-    color:#cca26a; 
-}
-.hidden{
-    display:none;
-}
- 
+
 /* footer{
     color:#aaa;
     text-align: center;
