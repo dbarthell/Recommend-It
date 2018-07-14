@@ -1,7 +1,7 @@
 $(document).ready(function() {
   /* global moment */
   // Initialize AOS
-  // AOS.init();
+  AOS.init();
 
   // postContainer holds all of our posts
   var postContainer = $(".card-columns");
